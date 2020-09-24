@@ -1,0 +1,13 @@
+/home/heidi/Documents/Projects/OSD600/package/OSD600.GoodLinkOrBadLink/obj/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.csprojAssemblyReference.cache
+/home/heidi/Documents/Projects/OSD600/package/OSD600.GoodLinkOrBadLink/obj/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.AssemblyInfoInputs.cache
+/home/heidi/Documents/Projects/OSD600/package/OSD600.GoodLinkOrBadLink/obj/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.AssemblyInfo.cs
+/home/heidi/Documents/Projects/OSD600/package/OSD600.GoodLinkOrBadLink/obj/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.csproj.CoreCompileInputs.cache
+/home/heidi/Documents/Projects/OSD600/package/OSD600.GoodLinkOrBadLink/bin/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink
+/home/heidi/Documents/Projects/OSD600/package/OSD600.GoodLinkOrBadLink/bin/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.deps.json
+/home/heidi/Documents/Projects/OSD600/package/OSD600.GoodLinkOrBadLink/bin/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.runtimeconfig.json
+/home/heidi/Documents/Projects/OSD600/package/OSD600.GoodLinkOrBadLink/bin/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.runtimeconfig.dev.json
+/home/heidi/Documents/Projects/OSD600/package/OSD600.GoodLinkOrBadLink/bin/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.dll
+/home/heidi/Documents/Projects/OSD600/package/OSD600.GoodLinkOrBadLink/bin/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.pdb
+/home/heidi/Documents/Projects/OSD600/package/OSD600.GoodLinkOrBadLink/obj/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.dll
+/home/heidi/Documents/Projects/OSD600/package/OSD600.GoodLinkOrBadLink/obj/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.pdb
+/home/heidi/Documents/Projects/OSD600/package/OSD600.GoodLinkOrBadLink/obj/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.genruntimeconfig.cache

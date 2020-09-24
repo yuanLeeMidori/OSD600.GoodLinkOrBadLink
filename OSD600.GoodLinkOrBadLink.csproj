@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>botsay</ToolCommandName>
+    <PackageOutputPath>./nupkg</PackageOutputPath>
+
+    <Authors>Yuan-Hsi Lee</Authors>
+    
+  </PropertyGroup>
+
+  <ItemGroup>
+        <None Include="LICENSE.txt" Pack="true" PackagePath="LICENSE.txt"/>
+  </ItemGroup>
+
+</Project>
