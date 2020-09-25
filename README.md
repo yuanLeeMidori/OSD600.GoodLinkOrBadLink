@@ -1,6 +1,6 @@
 ### GoodLinkOrBadLink
 
-This command line tool helps you to test bundle of URLs. Just install the tool and run it with your file that contains the URLs that you're not sure which of them are valid and which of them are not.
+This command line tool helps you to test bundles of URLs. Just install the tool and run it with your file that contains the URLs that you're not sure which of them are valid and which of them are not.
 
 #### Environment
 
@@ -13,9 +13,16 @@ Use this command to install the tool:
 
 `dotnet tool install --global OSD600.GoodLinkOrBadLink --version 1.0.2`
 
-After the installation, use the command `goodOrBad` as tool name with the file that you want to check. For example, the file on your local machine is `urls.txt`, use command `goodOrBad urls.txt` to run the tool. You can also check the version of this tool with `goodOrBad --v` or `goodOrBad --version` command. 
+#### How to use it
+
+After the installation, use the command `goodOrBad` as tool command name with the file that you want to check. For example, the file on your local machine is `urls.txt`, use command `goodOrBad urls.txt` to run the tool. You can also check the version of this tool with `goodOrBad --v` or `goodOrBad --version` command. 
+
+You can use this *goodOrBad* command in any directory. You can either move to the directory that contains the file that you want to test, or just simply use file path and run it with the command.
+
+If the argument you're passing with the command is not valid, you'll get a warning message.
+
 
 #### Run the source code
 
-After cloning the repo, change directory to it and use `dotnet run` with argumens (e.g. file name, --v/--version) to run the Program.cs. Or you can use other IDE to run the project. 
+After cloning the repo, change directory to it and use `dotnet run` with the argument (e.g. file name, --v/--version) to run the Program.cs. For example, `dotnet run localFile.txt`. Or you can download the source code and use IDE such as Visual Studio to run the project. 
 

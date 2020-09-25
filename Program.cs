@@ -20,7 +20,7 @@ namespace OSD600.GoodLinkOrBadLink
             {
                 
                 Console.WriteLine("\nThank you for using GoodLinkOrBadLink!");
-                Console.WriteLine("\nRun the tool name with a file that contains URLs in your local machine and find out which are good links and which are not. For example: GoodLinkOrBadLink urls.txt\nUse \"GoodLinkOrBadLink -v\" or \"GoodLinkOrBadLink -version\" to get the current version of package.");
+                Console.WriteLine("\nRun the tool command with a file that contains URLs on your local machine and find out which are good links and which are not. For example: goodOrBad urls.txt\nUse \"GoodLinkOrBadLink --v\" or \"GoodLinkOrBadLink --version\" to get the current version of package.");
 
                 
 
@@ -36,103 +36,106 @@ namespace OSD600.GoodLinkOrBadLink
                 if(args[0].Equals("--v") || args[0].Equals("--version"))
 
                     Console.WriteLine($"OSD600.GoodLinkOrBadLink v{versionString}");
-                
-                
+
+                               
+                else{
             
 
                 
 
-                try{
+                    try{
 
-                    string file = args[0];
-              
-                    string[] fileContent = File.ReadAllLines(args[0]);
+                        string file = args[0];
+                
+                        string[] fileContent = File.ReadAllLines(args[0]);
 
 
-                    if(fileContent == null || fileContent.Length < 1){
+                        if(fileContent == null || fileContent.Length < 1){
+                            
+                            Console.WriteLine("\"{0}\" is empty, there is nothing to test", args[0]);
                         
-                        Console.WriteLine("\"{0}\" is empty, there is nothing to test", args[0]);
-                    
-                    }else{
+                        }else{
 
-             
-                                    Regex rx = new Regex(@"https?://[a-zA-Z0-9@:%._\+~#=]");
+                
+                                        Regex rx = new Regex(@"https?://[a-zA-Z0-9@:%._\+~#=]");
+
+                                        
+                                        string[] urls = File.ReadAllLines(args[0]);
 
                                     
-                                    string[] urls = File.ReadAllLines(args[0]);
+                            
 
-                                   
-                        
-
-                                    List<string> lines = new List<string>();
-                                
+                                        List<string> lines = new List<string>();
+                                    
 
 
-                                    foreach(String line in urls){
+                                        foreach(String line in urls){
 
-                                        
-                                        
-
-                                        if(rx.IsMatch(line)){
-                    
-                                            try{
-
-                                                HttpResponseMessage response = await client.GetAsync(line);
                                             
-                                                if((int)response.StatusCode == 200){
+                                            
 
-                                                    Console.ForegroundColor = ConsoleColor.Green;
-                                                    Console.Write("[Good]");
+                                            if(rx.IsMatch(line)){
+                        
+                                                try{
+
+                                                    HttpResponseMessage response = await client.GetAsync(line);
+                                                
+                                                    if((int)response.StatusCode == 200){
+
+                                                        Console.ForegroundColor = ConsoleColor.Green;
+                                                        Console.Write("[Good]");
+                                                        Console.ResetColor();
+                                                        Console.WriteLine(line);
+
+                                                    }else if((int)response.StatusCode == 400 || (int)response.StatusCode == 404){
+                                                        
+                                                        Console.ForegroundColor = ConsoleColor.Red;
+                                                        Console.Write("[Bad]");
+                                                        Console.ResetColor();
+                                                        Console.WriteLine(line);
+                                                    }
+
+
+                                                }catch(HttpRequestException){
+
+                                                    Console.ForegroundColor = ConsoleColor.Gray;
+                                                    Console.Write("[Unknown]");
                                                     Console.ResetColor();
                                                     Console.WriteLine(line);
 
-                                                }else if((int)response.StatusCode == 400 || (int)response.StatusCode == 404){
                                                     
-                                                    Console.ForegroundColor = ConsoleColor.Red;
-                                                    Console.Write("[Bad]");
-                                                    Console.ResetColor();
-                                                    Console.WriteLine(line);
+
                                                 }
 
+                                            }else{
 
-                                            }catch(HttpRequestException){
-
-                                                Console.ForegroundColor = ConsoleColor.Gray;
-                                                Console.Write("[Unknown]");
-                                                Console.ResetColor();
-                                                Console.WriteLine(line);
-
-                                                
-
+                                                Console.WriteLine("not a URL");
                                             }
 
-                                        }else{
-
-                                            Console.WriteLine("this is not a URL");
                                         }
+                        } 
 
-                                    }
-                    } 
+                    }catch(FileNotFoundException e){
 
-                }catch(FileNotFoundException e){
+                        Console.BackgroundColor = ConsoleColor.Yellow;
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.Write("Warning: ");
+                        Console.ResetColor();
+                        Console.WriteLine(e.Message);
+                        
 
-                    Console.BackgroundColor = ConsoleColor.Yellow;
-                    Console.ForegroundColor = ConsoleColor.Black;
-                    Console.Write("Warning: ");
-                    Console.ResetColor();
-                    Console.WriteLine(e.Message);
+                    }catch(Exception e){
+
+                        Console.BackgroundColor = ConsoleColor.Yellow;
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.Write("Warning: ");
+                        Console.ResetColor();
+                        Console.WriteLine(e.Message);
                     
+                        
 
-                }catch(Exception e){
 
-                    Console.BackgroundColor = ConsoleColor.Yellow;
-                    Console.ForegroundColor = ConsoleColor.Black;
-                    Console.Write("Warning: ");
-                    Console.ResetColor();
-                    Console.WriteLine(e.Message);
-                
-                    
-
+                    }
 
                 }
 
