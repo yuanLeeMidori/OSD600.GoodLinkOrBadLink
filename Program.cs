@@ -20,7 +20,7 @@ namespace OSD600.GoodLinkOrBadLink
             {
                 
                 Console.WriteLine("\nThank you for using GoodLinkOrBadLink!");
-                Console.WriteLine("\nRun the tool command with a file that contains URLs on your local machine and find out which are good links and which are not. For example: goodOrBad urls.txt\nUse \"GoodLinkOrBadLink --v\" or \"GoodLinkOrBadLink --version\" to get the current version of package.");
+                Console.WriteLine("\nRun the tool command with a file that contains URLs on your local machine and find out which are good links and which are not. For example: goodOrBad urls.txt\nUse \"goodOrBad --v\" or \"goodOrBad --version\" to get the current version of package.");
 
                 
 
