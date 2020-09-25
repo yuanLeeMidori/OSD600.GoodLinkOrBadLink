@@ -11,7 +11,7 @@ You'll need dotnet core SDK environment to use this tool and run the source code
 
 Use this command to install the tool: 
 
-`dotnet tool install --global OSD600.GoodLinkOrBadLink --version 1.0.2`
+`dotnet tool install --global OSD600.GoodLinkOrBadLink --version 1.0.4`
 
 #### How to use it
 
