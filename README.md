@@ -11,7 +11,19 @@ You'll need dotnet core SDK environment to use this tool and run the source code
 
 Use this command to install the tool: 
 
-`dotnet tool install --global OSD600.GoodLinkOrBadLink --version 1.0.4`
+`dotnet tool install -g OSD600.GoodLinkOrBadLink`
+
+Use this command to install the specific version:
+
+`dotnet tool install -g OSD600.GoodLinkOrBadLink --version *the-version-you-want*`
+
+Use this command to upgrade to the latest version:
+
+`dotnet tool update OSD600.GoodLinkOrBadLink -g`
+
+Use this command to uninstall the tool:
+
+`dotnet tool uninstall -g OSD600.GoodLinkOrBadLink`
 
 #### How to use it
 
@@ -24,5 +36,5 @@ If the argument you're passing with the command is not valid, you'll get a warni
 
 #### Run the source code
 
-After cloning the repo, change directory to it and use `dotnet run` with the argument (e.g. file name, --v/--version) to run the Program.cs. For example, `dotnet run localFile.txt`. Or you can download the source code and use IDE such as Visual Studio to run the project. 
+After cloning the repo on GitHub, change directory to it and use `dotnet run` with the argument (e.g. file name, --v/--version) to run the Program.cs. For example, `dotnet run localFile.txt`. Or you can download the source code and use IDE such as Visual Studio to run the project. 
 

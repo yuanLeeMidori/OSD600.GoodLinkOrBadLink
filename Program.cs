@@ -83,14 +83,14 @@ namespace OSD600.GoodLinkOrBadLink
                                                     if((int)response.StatusCode == 200){
 
                                                         Console.ForegroundColor = ConsoleColor.Green;
-                                                        Console.Write("[Good]");
+                                                        Console.Write("[Good] ");
                                                         Console.ResetColor();
                                                         Console.WriteLine(line);
 
                                                     }else if((int)response.StatusCode == 400 || (int)response.StatusCode == 404){
                                                         
                                                         Console.ForegroundColor = ConsoleColor.Red;
-                                                        Console.Write("[Bad]");
+                                                        Console.Write("[Bad] ");
                                                         Console.ResetColor();
                                                         Console.WriteLine(line);
                                                     }
@@ -99,7 +99,7 @@ namespace OSD600.GoodLinkOrBadLink
                                                 }catch(HttpRequestException){
 
                                                     Console.ForegroundColor = ConsoleColor.Gray;
-                                                    Console.Write("[Unknown]");
+                                                    Console.Write("[Unknown] ");
                                                     Console.ResetColor();
                                                     Console.WriteLine(line);
 

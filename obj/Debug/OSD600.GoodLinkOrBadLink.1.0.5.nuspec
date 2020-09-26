@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>OSD600.GoodLinkOrBadLink</id>
+    <version>1.0.5</version>
+    <authors>Yuan-Hsi Lee</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package Description</description>
+    <packageTypes>
+      <packageType name="DotnetTool" />
+    </packageTypes>
+  </metadata>
+  <files>
+    <file src="/home/heidi/Documents/Projects/OSD600/package/OSD600.GoodLinkOrBadLink/obj/DotnetToolSettings.xml" target="tools/netcoreapp3.1/any/DotnetToolSettings.xml" />
+    <file src="/home/heidi/Documents/Projects/OSD600/package/OSD600.GoodLinkOrBadLink/bin/Debug/netcoreapp3.1/publish/OSD600.GoodLinkOrBadLink.dll" target="tools/netcoreapp3.1/any/OSD600.GoodLinkOrBadLink.dll" />
+    <file src="/home/heidi/Documents/Projects/OSD600/package/OSD600.GoodLinkOrBadLink/bin/Debug/netcoreapp3.1/publish/OSD600.GoodLinkOrBadLink.deps.json" target="tools/netcoreapp3.1/any/OSD600.GoodLinkOrBadLink.deps.json" />
+    <file src="/home/heidi/Documents/Projects/OSD600/package/OSD600.GoodLinkOrBadLink/bin/Debug/netcoreapp3.1/publish/OSD600.GoodLinkOrBadLink.runtimeconfig.json" target="tools/netcoreapp3.1/any/OSD600.GoodLinkOrBadLink.runtimeconfig.json" />
+    <file src="/home/heidi/Documents/Projects/OSD600/package/OSD600.GoodLinkOrBadLink/bin/Debug/netcoreapp3.1/publish/OSD600.GoodLinkOrBadLink.pdb" target="tools/netcoreapp3.1/any/OSD600.GoodLinkOrBadLink.pdb" />
+    <file src="/home/heidi/Documents/Projects/OSD600/package/OSD600.GoodLinkOrBadLink/LICENSE.txt" target="LICENSE.txt" />
+  </files>
+</package>
