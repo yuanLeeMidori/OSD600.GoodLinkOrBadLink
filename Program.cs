@@ -19,26 +19,16 @@ namespace OSD600.GoodLinkOrBadLink
             if (args.Length == 0)
             {
                 
-                Console.WriteLine("\nThank you for using GoodLinkOrBadLink!");
-                Console.WriteLine("\nRun the tool command with a file that contains URLs on your local machine and find out which are good links and which are not. For example: goodOrBad urls.txt\nUse \"goodOrBad --v\" or \"goodOrBad --version\" to get the current version of package.");
-
-                
+                CLIUsage.WelcomeManual();
 
                 return;
 
             }else{
 
-                var versionString = Assembly.GetEntryAssembly()
-                                        .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
-                                        .InformationalVersion
-                                        .ToString();
+                bool readArgAsFile = CLIUsage.Version(args[0]);
+                if(readArgAsFile){
 
-                if(args[0].Equals("--v") || args[0].Equals("--version"))
-
-                    Console.WriteLine($"OSD600.GoodLinkOrBadLink v{versionString}");
-
-                               
-                else{
+                }else{
             
 
                 
