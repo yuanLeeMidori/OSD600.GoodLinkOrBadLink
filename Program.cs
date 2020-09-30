@@ -42,7 +42,7 @@ namespace OSD600.GoodLinkOrBadLink
                                 try {
                                     filePath = args[1];
                                 } catch(Exception) {
-                                    Console.WriteLine("Missing file input.");
+                                    Console.WriteLine("Missing file input");
 
                                     System.Environment.Exit(1);
                                 }
@@ -93,12 +93,12 @@ namespace OSD600.GoodLinkOrBadLink
 
                                                 if ((bool)available) {
                                                     Console.ForegroundColor = ConsoleColor.Green;
-                                                    Console.Write("[Good] ");
+                                                    Console.Write("[Available] ");
                                                     Console.ResetColor();
                                                     Console.WriteLine(line);
                                                 } else {
                                                     Console.ForegroundColor = ConsoleColor.Red;
-                                                    Console.Write("[Bad] ");
+                                                    Console.Write("[Not Available] ");
                                                     Console.ResetColor();
                                                     Console.WriteLine(line);
                                                 }   
