@@ -1,7 +1,3 @@
-/mnt/c/Users/roger/Desktop/OSD600/GoodLinkOrBadLink/obj/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.csprojAssemblyReference.cache
-/mnt/c/Users/roger/Desktop/OSD600/GoodLinkOrBadLink/obj/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.AssemblyInfoInputs.cache
-/mnt/c/Users/roger/Desktop/OSD600/GoodLinkOrBadLink/obj/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.AssemblyInfo.cs
-/mnt/c/Users/roger/Desktop/OSD600/GoodLinkOrBadLink/obj/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.csproj.CoreCompileInputs.cache
 /mnt/c/Users/roger/Desktop/OSD600/GoodLinkOrBadLink/bin/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink
 /mnt/c/Users/roger/Desktop/OSD600/GoodLinkOrBadLink/bin/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.deps.json
 /mnt/c/Users/roger/Desktop/OSD600/GoodLinkOrBadLink/bin/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.runtimeconfig.json
@@ -9,6 +5,10 @@
 /mnt/c/Users/roger/Desktop/OSD600/GoodLinkOrBadLink/bin/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.dll
 /mnt/c/Users/roger/Desktop/OSD600/GoodLinkOrBadLink/bin/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.pdb
 /mnt/c/Users/roger/Desktop/OSD600/GoodLinkOrBadLink/bin/Debug/netcoreapp3.1/Newtonsoft.Json.dll
+/mnt/c/Users/roger/Desktop/OSD600/GoodLinkOrBadLink/obj/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.csprojAssemblyReference.cache
+/mnt/c/Users/roger/Desktop/OSD600/GoodLinkOrBadLink/obj/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.AssemblyInfoInputs.cache
+/mnt/c/Users/roger/Desktop/OSD600/GoodLinkOrBadLink/obj/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.AssemblyInfo.cs
+/mnt/c/Users/roger/Desktop/OSD600/GoodLinkOrBadLink/obj/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.csproj.CoreCompileInputs.cache
 /mnt/c/Users/roger/Desktop/OSD600/GoodLinkOrBadLink/obj/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.csproj.CopyComplete
 /mnt/c/Users/roger/Desktop/OSD600/GoodLinkOrBadLink/obj/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.dll
 /mnt/c/Users/roger/Desktop/OSD600/GoodLinkOrBadLink/obj/Debug/netcoreapp3.1/OSD600.GoodLinkOrBadLink.pdb
