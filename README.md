@@ -27,7 +27,7 @@ Use this command to uninstall the tool:
 
 #### How to use it
 
-After the installation, use the command `goodOrBad` as tool command name with the file that you want to check. For example, the file on your local machine is `urls.txt`, use command `goodOrBad urls.txt` to run the tool. You can also check the version of this tool with `goodOrBad --v` or `goodOrBad --version` command. 
+After installation, use the command `goodOrBad` as a command line tool along with a file arguement that you would like to check. For example, the file on your local machine is `urls.txt`, use the command `goodOrBad urls.txt` to run the tool. You can also check the version of this tool with `goodOrBad --v` or `goodOrBad --version` command. 
 
 You can use this *goodOrBad* command in any directory. You can either move to the directory that contains the file that you want to test, or just simply use file path and run it with the command.
 
