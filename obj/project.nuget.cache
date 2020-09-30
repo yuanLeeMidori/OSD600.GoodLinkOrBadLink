@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "tvm4VyunD+4G/owENTI3siZpL6Js5jhL/kyivAU8SkhKYbps/AYEI1AVjnxEa3+f6TT3bFj0rZbwZc7XtAWgFA==",
+  "dgSpecHash": "76ZwAS8oikN40RZ5mC534F5Uu2utr47/TnVQci+pyQNWlckwhWvKnKkj4kLurUdZms332aVGWOfJmdbBLabxGA==",
   "success": true,
-  "projectFilePath": "/home/heidi/Documents/Projects/OSD600/package/OSD600.GoodLinkOrBadLink/OSD600.GoodLinkOrBadLink.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/mnt/c/Users/roger/Desktop/OSD600/GoodLinkOrBadLink/OSD600.GoodLinkOrBadLink.csproj",
+  "expectedPackageFiles": [
+    "/home/rogeryu27/.nuget/packages/newtonsoft.json/12.0.3/newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

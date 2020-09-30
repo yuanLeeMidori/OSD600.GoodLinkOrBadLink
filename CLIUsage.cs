@@ -40,5 +40,23 @@ namespace OSD600.GoodLinkOrBadLink{
             }
 
         }
+
+        public static bool WayBack(string argument){
+
+            string[] args = {"--w", "--wayback", "/w"};
+            List<string> waybackList = new List<string>(args);
+
+            bool wayback = waybackList.Any(w => argument.Contains(w));
+            if(wayback){
+
+                return true;
+                
+            }else{
+                
+                return false;
+
+            }
+        }
+
     }
 }
