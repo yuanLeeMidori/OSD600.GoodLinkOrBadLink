@@ -11,7 +11,9 @@ namespace OSD600.GoodLinkOrBadLink{
         public static void WelcomeManual(){
 
             Console.WriteLine("\nThank you for using GoodLinkOrBadLink!");
-            Console.WriteLine("\nRun the tool command with a file that contains URLs on your local machine and find out which are good links and which are not. For example: goodOrBad urls.txt\nUse \"goodOrBad --v\" or \"goodOrBad --version\" to get the current version of package.");
+            Console.WriteLine("\nRun the tool command with a file that contains URLs on your local machine and find out which are good links and which are not. For example: goodOrBad urls.txt" + 
+            "\nUse \"goodOrBad --v\" or \"goodOrBad --version\" to get the current version of package." +
+            "\nUse \"goodOrBad --w\" or \"goodOrBad --wayback\" to check Wayback machine's availability.");
 
                 
         }
@@ -40,5 +42,23 @@ namespace OSD600.GoodLinkOrBadLink{
             }
 
         }
+
+        public static bool WayBack(string argument){
+
+            string[] args = {"--w", "--wayback", "/w"};
+            List<string> waybackList = new List<string>(args);
+
+            bool wayback = waybackList.Any(w => argument.Contains(w));
+            if(wayback){
+
+                return true;
+                
+            }else{
+                
+                return false;
+
+            }
+        }
+
     }
 }
