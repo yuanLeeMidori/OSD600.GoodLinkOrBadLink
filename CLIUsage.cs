@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -58,6 +59,34 @@ namespace OSD600.GoodLinkOrBadLink{
                 return false;
 
             }
+        }
+
+        public static bool GlobalPattern(string argument)
+        {
+            bool gp = false;
+            string path = Directory.GetCurrentDirectory();
+            try
+            {
+                string[] fileNames = Directory.GetFiles(path, argument);
+                if (fileNames.Length > 0)
+                {
+
+                    gp = true;
+
+
+                }
+            }
+            catch (Exception)
+            {
+
+
+                gp = false;
+
+
+            }
+
+
+            return gp;
         }
 
     }
