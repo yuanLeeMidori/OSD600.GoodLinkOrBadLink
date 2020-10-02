@@ -27,8 +27,9 @@ namespace OSD600.GoodLinkOrBadLink
 
                 bool readArgAsFile = CLIUsage.Version(args[0]);
                 bool wayback = CLIUsage.WayBack(args[0]);
-                
-                if(readArgAsFile){
+                bool globalPattern = CLIUsage.GlobalPattern(args[0]);
+
+                if (readArgAsFile){
 
                 }else{
             
@@ -36,9 +37,9 @@ namespace OSD600.GoodLinkOrBadLink
                 
                     try{
                         string filePath = args[0];
+                        List<string> globalPat = new List<string>();
 
-
-                            if(wayback) {
+                            if (wayback) {
                                 try {
                                     filePath = args[1];
                                 } catch(Exception) {
@@ -47,10 +48,29 @@ namespace OSD600.GoodLinkOrBadLink
                                     System.Environment.Exit(1);
                                 }
                             }
-                            string[] fileContent = File.ReadAllLines(filePath);
-                        
 
-                            if(fileContent == null || fileContent.Length < 1){
+                            if (globalPattern) {
+                                try{
+
+                                    string path = Directory.GetCurrentDirectory();
+                                    foreach (var item in Directory.GetFiles(path, args[0])){
+                                        foreach (var i in File.ReadAllLines(item)){
+                                            globalPat.Add(i);
+                                        }
+
+                                    }
+                                }
+                                catch (Exception){
+
+                                    Console.WriteLine("Missing file(s)...");
+
+                                }
+
+                            }
+                            string[] fileContent = (globalPattern) ? null : File.ReadAllLines(filePath);
+
+
+                            if (globalPat.Count < 1 && (fileContent == null || fileContent.Length < 1)){
                                 
                                 Console.WriteLine("\"{0}\" is empty, there is nothing to test", filePath);
                             
@@ -59,11 +79,11 @@ namespace OSD600.GoodLinkOrBadLink
         
                                 Regex rx = new Regex(@"https?://[a-zA-Z0-9@:%._\+~#=]");
 
-                                
-                                string[] urls = File.ReadAllLines(filePath);
 
-                            
-                    
+                                string[] urls = (globalPat.Count > 1) ? globalPat.ToArray() : File.ReadAllLines(filePath);
+
+
+
 
                                 List<string> lines = new List<string>();
                             

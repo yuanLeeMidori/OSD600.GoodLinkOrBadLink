@@ -30,6 +30,7 @@ Use this command to uninstall the tool:
 After installation, use the command `goodOrBad` as a command line tool along with a file arguement that you would like to check. For example, the file on your local machine is `urls.txt`, use the command `goodOrBad urls.txt` to run the tool. 
 * You can also check the version of this tool with `goodOrBad --v` or `goodOrBad --version` command. 
 * You can also check the wayback availiability with `goodOrBad --w` or `goodOrBad --wayback` command. 
+* You can also check pass multiple files using regex, e.g. `goodOrBad *.txt` which will check all the .txt files in the current directory. 
 
 You can use this *goodOrBad* command in any directory. You can either move to the directory that contains the file that you want to test, or just simply use file path and run it with the command.
 
