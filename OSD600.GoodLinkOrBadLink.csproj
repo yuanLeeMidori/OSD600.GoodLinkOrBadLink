@@ -6,13 +6,13 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
 
-    <Version>1.0.5</Version>
+    <Version>1.0.6</Version>
     
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>goodOrBad</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
 
-    <Authors>Yuan-Hsi Lee</Authors>
+    <Authors>Yuan-Hsi Lee, Roger Yu, Abu Zayed Kazi</Authors>
     
   </PropertyGroup>
 

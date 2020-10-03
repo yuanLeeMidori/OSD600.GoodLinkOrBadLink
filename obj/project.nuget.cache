@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "mhvlsghkY4t4g1xTeQav2yfzhqwZLzS9C09M6BsQNI4yd9oVt6uPFG2wOF3g71JGb8YZifwSvZJ4Z6rQrrmuQQ==",
+  "dgSpecHash": "Il8Mmv0pNyy/q0M9v2Kk1vd5t3RvofccIdP2YdVntHqlxazw5d71xrBIb8tugbMrbLwRFV2e0Joz6mjEQSd4QQ==",
   "success": true,
-  "projectFilePath": "D:\\Documents\\Seneca_College\\OSD600\\YuanLeeRelease0.1\\OSD600.GoodLinkOrBadLink-master\\OSD600.GoodLinkOrBadLink.csproj",
+  "projectFilePath": "/home/heidi/Documents/Projects/OSD600/package/OSD600.GoodLinkOrBadLink/OSD600.GoodLinkOrBadLink.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Zayed\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+    "/home/heidi/.nuget/packages/newtonsoft.json/12.0.3/newtonsoft.json.12.0.3.nupkg.sha512"
   ],
   "logs": []
 }

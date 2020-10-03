@@ -23,39 +23,66 @@ namespace OSD600.GoodLinkOrBadLink
 
                 return;
 
+                               
             }else{
-
-                bool readArgAsFile = CLIUsage.Version(args[0]);
+                
+                bool option = CLIUsage.isOption(args[0]);
+                bool version = CLIUsage.Version(args[0]);
                 bool wayback = CLIUsage.WayBack(args[0]);
                 bool globalPattern = CLIUsage.GlobalPattern(args[0]);
 
-                if (readArgAsFile){
+                if(!option){
+
+                    Console.WriteLine("The input option \"{0}\" is invalid. Try --v to get version or --w to get Wayback", args[0]);
+                    Environment.Exit(0);
+                }
+
+                if (version){
+
+                    var versionString = Assembly.GetEntryAssembly()
+                                        .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+                                        .InformationalVersion
+                                        .ToString();
+
+                    Console.WriteLine($"OSD600.GoodLinkOrBadLink v{versionString}");
+
 
                 }else{
-            
-
-                
+                          
                     try{
+
                         string filePath = args[0];
                         List<string> globalPat = new List<string>();
 
                             if (wayback) {
-                                try {
-                                    filePath = args[1];
-                                } catch(Exception) {
-                                    Console.WriteLine("Missing file input");
 
+                                try {
+
+                                    filePath = args[1];
+
+                                } catch(Exception) {
+
+                                    Console.WriteLine("Missing file input");
                                     System.Environment.Exit(1);
+
                                 }
+
                             }
 
                             if (globalPattern) {
+
                                 try{
 
                                     string path = Directory.GetCurrentDirectory();
-                                    foreach (var item in Directory.GetFiles(path, args[0])){
-                                        foreach (var i in File.ReadAllLines(item)){
+
+                                    foreach (var file in Directory.GetFiles(path, args[0])){
+
+                                        Console.WriteLine("Reading \"{0}\"...", file.Split("/").Last());
+
+                                        foreach (var i in File.ReadAllLines(file)){
+                                    
                                             globalPat.Add(i);
+
                                         }
 
                                     }
@@ -67,32 +94,20 @@ namespace OSD600.GoodLinkOrBadLink
                                 }
 
                             }
-                            string[] fileContent = (globalPattern) ? null : File.ReadAllLines(filePath);
 
+                            string[] fileContent = (globalPattern) ? null : File.ReadAllLines(filePath);
 
                             if (globalPat.Count < 1 && (fileContent == null || fileContent.Length < 1)){
                                 
                                 Console.WriteLine("\"{0}\" is empty, there is nothing to test", filePath);
                             
                             }else{
-
         
                                 Regex rx = new Regex(@"https?://[a-zA-Z0-9@:%._\+~#=]");
-
-
                                 string[] urls = (globalPat.Count > 1) ? globalPat.ToArray() : File.ReadAllLines(filePath);
-
-
-
-
                                 List<string> lines = new List<string>();
-                            
-
-
-                                foreach(String line in urls){
-
-                                    
-                                    
+                        
+                                foreach(String line in urls){                                                            
 
                                     if(rx.IsMatch(line)){
                 
@@ -104,28 +119,39 @@ namespace OSD600.GoodLinkOrBadLink
                                                 dynamic x = Newtonsoft.Json.JsonConvert.DeserializeObject(jsonString);
                                                 var archived = x.archived_snapshots;
                                                 dynamic available;
+
                                                 try {
+
                                                     var closest = archived.closest;
                                                     available = closest.available;
+
                                                 }catch(Exception){
+
                                                     available = false;
+
                                                 }
 
                                                 if ((bool)available) {
+
                                                     Console.ForegroundColor = ConsoleColor.Green;
                                                     Console.Write("[Available] ");
                                                     Console.ResetColor();
                                                     Console.WriteLine(line);
+
                                                 } else {
+
                                                     Console.ForegroundColor = ConsoleColor.Red;
                                                     Console.Write("[Not Available] ");
                                                     Console.ResetColor();
                                                     Console.WriteLine(line);
+
                                                 }   
 
 
                                             } else {
+
                                                 HttpResponseMessage response = await client.GetAsync(line);
+
                                                 if((int)response.StatusCode == 200){
 
                                                     Console.ForegroundColor = ConsoleColor.Green;
@@ -141,18 +167,13 @@ namespace OSD600.GoodLinkOrBadLink
                                                     Console.WriteLine(line);
                                                 }
                                             }
-
-                                        
-
-
+                                   
                                         }catch(HttpRequestException){
 
                                             Console.ForegroundColor = ConsoleColor.Gray;
                                             Console.Write("[Unknown] ");
                                             Console.ResetColor();
-                                            Console.WriteLine(line);
-
-                                            
+                                            Console.WriteLine(line);                                            
 
                                         }
 
@@ -160,7 +181,6 @@ namespace OSD600.GoodLinkOrBadLink
 
                                         Console.WriteLine("not a URL");
                                     }
-
                                 }
                 } 
 
@@ -172,7 +192,6 @@ namespace OSD600.GoodLinkOrBadLink
                         Console.ResetColor();
                         Console.WriteLine(e.Message);
                         
-
                     }catch(Exception e){
 
                         Console.BackgroundColor = ConsoleColor.Yellow;
@@ -180,9 +199,6 @@ namespace OSD600.GoodLinkOrBadLink
                         Console.Write("Warning: ");
                         Console.ResetColor();
                         Console.WriteLine(e.Message);
-                    
-                        
-
 
                     }
 
