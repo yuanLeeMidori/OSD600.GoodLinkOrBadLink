@@ -29,11 +29,12 @@ namespace OSD600.GoodLinkOrBadLink
                 bool option = CLIUsage.isOption(args[0]);
                 bool version = CLIUsage.Version(args[0]);
                 bool wayback = CLIUsage.WayBack(args[0]);
+                bool json = CLIUsage.JSON(args[0]);
                 bool globalPattern = CLIUsage.GlobalPattern(args[0]);
 
                 if(!option){
 
-                    Console.WriteLine("The input option \"{0}\" is invalid. Try --v to get version or --w to get Wayback", args[0]);
+                    Console.WriteLine("The input option \"{0}\" is invalid. Try --v to get version, --w to get Wayback, or --j to get JSON format output", args[0]);
                     Environment.Exit(0);
                 }
 
@@ -69,6 +70,20 @@ namespace OSD600.GoodLinkOrBadLink
 
                             }
 
+                            if(json){
+
+                                try{
+
+                                    filePath = args[1];
+                                    Console.WriteLine("i got filfe");
+
+                                }catch(Exception){
+
+                                    Console.WriteLine("Missing file");
+                                    System.Environment.Exit(1);
+                                }
+                            }
+
                             if (globalPattern) {
 
                                 try{
@@ -96,7 +111,7 @@ namespace OSD600.GoodLinkOrBadLink
                             }
 
                             string[] fileContent = (globalPattern) ? null : File.ReadAllLines(filePath);
-
+                          
                             if (globalPat.Count < 1 && (fileContent == null || fileContent.Length < 1)){
                                 
                                 Console.WriteLine("\"{0}\" is empty, there is nothing to test", filePath);
@@ -107,8 +122,8 @@ namespace OSD600.GoodLinkOrBadLink
                                 string[] urls = (globalPat.Count > 1) ? globalPat.ToArray() : File.ReadAllLines(filePath);
                                 List<string> lines = new List<string>();
                         
-                                foreach(String line in urls){                                                            
-
+                                foreach(String line in urls){       
+                                   
                                     if(rx.IsMatch(line)){
                 
                                         try{
@@ -147,6 +162,11 @@ namespace OSD600.GoodLinkOrBadLink
 
                                                 }   
 
+                                            }else if(json){
+
+                                                    HttpResponseMessage response = await client.GetAsync(line);
+                                                    Console.WriteLine("{ url: '" + line + "': status: '" + (int)response.StatusCode + "' }");
+                                               
 
                                             } else {
 
@@ -170,10 +190,18 @@ namespace OSD600.GoodLinkOrBadLink
                                    
                                         }catch(HttpRequestException){
 
-                                            Console.ForegroundColor = ConsoleColor.Gray;
-                                            Console.Write("[Unknown] ");
-                                            Console.ResetColor();
-                                            Console.WriteLine(line);                                            
+                                            if(json){
+
+                                                Console.WriteLine("{ url: '" + line + "': status: 'unknown' }");
+
+                                            }else{
+
+                                                Console.ForegroundColor = ConsoleColor.Gray;
+                                                Console.Write("[Unknown] ");
+                                                Console.ResetColor();
+                                                Console.WriteLine(line);   
+                                            }
+                                                                                     
 
                                         }
 

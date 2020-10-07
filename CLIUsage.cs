@@ -13,8 +13,9 @@ namespace OSD600.GoodLinkOrBadLink{
 
             Console.WriteLine("\nThank you for using GoodLinkOrBadLink!");
             Console.WriteLine("\nRun the tool command with a file that contains URLs on your local machine and find out which are good links and which are not. For example: goodOrBad urls.txt" + 
-            "\nUse \"goodOrBad --v\" or \"goodOrBad --version\" to get the current version of package." +
-            "\nUse \"goodOrBad --w\" or \"goodOrBad --wayback\" to check Wayback machine's availability." + 
+            "\nUse \"goodOrBad --v\" or \"goodOrBad --version\" or \"goodOrBad /v\" to get the current version of package." +
+            "\nUse \"goodOrBad --w\" or \"goodOrBad --wayback\" or \"goodOrBad /w\" to check Wayback machine's availability." +
+            "\nUse \"goodOrBad --j\" or \"goodOrBad --json\" or \"goodOrBad /j\" to get JSON format output." + 
             "\nUse to \"goodOrBad *.txt\" to pass multiple files. ");
 
                 
@@ -24,7 +25,7 @@ namespace OSD600.GoodLinkOrBadLink{
 
             if(argument.StartsWith("--") || argument.StartsWith("/")){
 
-                if(!Version(argument) && !WayBack(argument)){
+                if(!Version(argument) && !WayBack(argument) && !JSON(argument)){
 
                     return false;
 
@@ -100,6 +101,24 @@ namespace OSD600.GoodLinkOrBadLink{
             }
 
             return gp;
+        }
+
+        public static bool JSON(string argument){
+
+            string[] args = {"-j", "--json", "/j"};
+            List<string> jsonArgs = new List<string>(args);
+
+            bool jsonOrNot = jsonArgs.Any(j => argument.Contains(j));
+            if(jsonOrNot){
+
+                return true;
+
+            }else{
+
+                return false;
+
+            }
+            
         }
 
     }
