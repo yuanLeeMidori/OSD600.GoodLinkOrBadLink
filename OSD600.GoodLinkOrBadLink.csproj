@@ -6,7 +6,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
 
-    <Version>1.0.6</Version>
+    <Version>1.0.7</Version>
     
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>goodOrBad</ToolCommandName>
@@ -17,7 +17,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-        <None Include="LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
+        <None Include="LICENSE" Pack="true" PackagePath="LICENSE" />
   </ItemGroup>
 
   <ItemGroup>
