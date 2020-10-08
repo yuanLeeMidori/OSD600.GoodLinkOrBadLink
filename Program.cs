@@ -35,10 +35,10 @@ namespace OSD600.GoodLinkOrBadLink
 
                 if(!option){
 
-                    Console.WriteLine("The input option \"{0}\" is invalid. Try --v to get version, --w to get Wayback, or --j to get JSON format output", args[0]);
                     Console.WriteLine("The input option \"" + args[0] + "\" is invalid. Try" +  
                                       "\n\n --v to get version," + 
                                       "\n --w to get Wayback," +
+                                      "\n --j to get JSON format output" +
                                       "\n --good to return URLs with 200 status code," +
                                       "\n --bad to return URLs with 400 or 404 status code" +
                                       "\n --all to return all URLs");
