@@ -28,16 +28,18 @@ Use this command to uninstall the tool:
 #### How to use it
 
 After installation, use the command `goodOrBad` as a command line tool along with a file arguement that you would like to check. For example, the file on your local machine is `urls.txt`, use the command `goodOrBad urls.txt` to run the tool. 
-* You can also check the version of this tool with `goodOrBad --v` or `goodOrBad --version` command. 
-* You can also check the wayback availiability with `goodOrBad --w` or `goodOrBad --wayback` command. 
+* Check the version of this tool with `goodOrBad --v`, `goodOrBad --version`, or `goodOrBad /v` command. 
+* Check the wayback availiability with `goodOrBad --w <filename>` or `goodOrBad --wayback <filename>` command. 
+* Check the output with JSON format with `goodOrBad --j <filename>` or `goodOrBad --json <filename>` command.
+* Check the output with filters such as `goodOrBad --good <filename>` to get the URLs with 200 status code exclusively; `goodOrBad --bad <filename>` to get the URLs with 400 or 404 status code. 
 * You can also check pass multiple files using regex, e.g. `goodOrBad *.txt` which will check all the .txt files in the current directory. 
 
 You can use this *goodOrBad* command in any directory. You can either move to the directory that contains the file that you want to test, or just simply use file path and run it with the command.
 
-If the file path you're passing doesn't exist, you'll get a warning message. If the option (e.g. --v, --w) you're passing is invalid, you'll get a short list of valid options.
+If the file path you're passing doesn't exist, you'll get a warning message. If the option you're passing is invalid, you'll get a short list of valid options.
 
 
 #### Run the source code
 
-After cloning the repo on GitHub, change directory to it and use `dotnet run` with the argument (e.g. file name, --v/--version) to run the Program.cs. For example, `dotnet run localFile.txt`. Or you can download the source code and use IDE such as Visual Studio to run the project. 
+After cloning the repo on GitHub, change directory to it and use `dotnet run` with the argument (e.g. file name, `--v` or `--w`) to run the Program.cs. For example, `dotnet run localFile.txt` or `dotnet run --w localFile.txt`. Or you can download the source code and use IDE such as Visual Studio to run the project. 
 

@@ -187,7 +187,7 @@ namespace OSD600.GoodLinkOrBadLink
                                             }else if(json){
 
                                                     HttpResponseMessage response = await client.GetAsync(line);
-                                                    Console.WriteLine("{ url: '" + line + "': status: '" + (int)response.StatusCode + "' }");
+                                                    Console.WriteLine("{ \"url\": '" + line + "' , \"status\": " + (int)response.StatusCode + " }");
                                                
                                             }else {
 
@@ -226,7 +226,7 @@ namespace OSD600.GoodLinkOrBadLink
 
                                             if(json){
 
-                                                Console.WriteLine("{ url: '" + line + "': status: 'unknown' }");
+                                                Console.WriteLine("{ \"url\": '" + line + "': \"status\": 'unknown' }");
 
                                             }else{
 
