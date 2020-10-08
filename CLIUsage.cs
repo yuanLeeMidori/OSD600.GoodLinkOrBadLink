@@ -12,9 +12,13 @@ namespace OSD600.GoodLinkOrBadLink{
         public static void WelcomeManual(){
 
             Console.WriteLine("\nThank you for using GoodLinkOrBadLink!");
-            Console.WriteLine("\nRun the tool command with a file that contains URLs on your local machine and find out which are good links and which are not. For example: goodOrBad urls.txt" + 
-            "\nUse \"goodOrBad --v\" or \"goodOrBad --version\" to get the current version of package." +
+            Console.WriteLine("\nRun the tool command with a file that contains URLs on your local machine and find out which are good links and which are not. For example: goodOrBad urls.txt" +
+            "\nYou can also add options to run with your file." + 
+            "\n\nUse \"goodOrBad --v\" or \"goodOrBad --version\" to get the current version of package." +
             "\nUse \"goodOrBad --w\" or \"goodOrBad --wayback\" to check Wayback machine's availability." + 
+            "\nUse \"goodOrBad --good\" to get URLs with status code 200." +
+            "\nUse \"goodOrBad --bad\" to get URLs with status code 400 or 404." +
+            "\nUse \"goodOrBad --all\" to get all URLs." +
             "\nUse to \"goodOrBad *.txt\" to pass multiple files. ");
 
                 
@@ -24,7 +28,7 @@ namespace OSD600.GoodLinkOrBadLink{
 
             if(argument.StartsWith("--") || argument.StartsWith("/")){
 
-                if(!Version(argument) && !WayBack(argument)){
+                if(!Version(argument) && !WayBack(argument) && !Filter(argument)){
 
                     return false;
 
@@ -101,6 +105,24 @@ namespace OSD600.GoodLinkOrBadLink{
 
             return gp;
         }
+
+        public static bool Filter(string argument){
+
+            string[] args = {"--good", "--bad", "--all"};
+            List<string> filterArgs = new List<string>(args);
+            bool filterOrNot = filterArgs.Any(f => argument.Contains(f));
+
+            if(filterOrNot){
+
+                return true;
+
+            }else{
+
+                return false;
+
+            }
+        }
+
 
     }
 }
