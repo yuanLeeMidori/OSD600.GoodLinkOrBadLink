@@ -30,12 +30,20 @@ namespace OSD600.GoodLinkOrBadLink
                 bool version = CLIUsage.Version(args[0]);
                 bool wayback = CLIUsage.WayBack(args[0]);
                 bool json = CLIUsage.JSON(args[0]);
+                bool filter = CLIUsage.Filter(args[0]);
                 bool globalPattern = CLIUsage.GlobalPattern(args[0]);
 
                 if(!option){
 
                     Console.WriteLine("The input option \"{0}\" is invalid. Try --v to get version, --w to get Wayback, or --j to get JSON format output", args[0]);
+                    Console.WriteLine("The input option \"" + args[0] + "\" is invalid. Try" +  
+                                      "\n\n --v to get version," + 
+                                      "\n --w to get Wayback," +
+                                      "\n --good to return URLs with 200 status code," +
+                                      "\n --bad to return URLs with 400 or 404 status code" +
+                                      "\n --all to return all URLs");
                     Environment.Exit(0);
+
                 }
 
                 if (version){
@@ -75,12 +83,26 @@ namespace OSD600.GoodLinkOrBadLink
                                 try{
 
                                     filePath = args[1];
-                                    Console.WriteLine("i got filfe");
 
                                 }catch(Exception){
 
-                                    Console.WriteLine("Missing file");
+                                    Console.WriteLine("Missing file input");
                                     System.Environment.Exit(1);
+                                }
+
+                            }
+
+                            if (filter) {
+
+                                try {
+
+                                    filePath = args[1];
+
+                                } catch(Exception) {
+
+                                    Console.WriteLine("Missing file input");
+                                    System.Environment.Exit(1);
+                                    
                                 }
                             }
 
@@ -167,24 +189,36 @@ namespace OSD600.GoodLinkOrBadLink
                                                     HttpResponseMessage response = await client.GetAsync(line);
                                                     Console.WriteLine("{ url: '" + line + "': status: '" + (int)response.StatusCode + "' }");
                                                
-
-                                            } else {
+                                            }else {
 
                                                 HttpResponseMessage response = await client.GetAsync(line);
 
                                                 if((int)response.StatusCode == 200){
 
-                                                    Console.ForegroundColor = ConsoleColor.Green;
-                                                    Console.Write("[Good] ");
-                                                    Console.ResetColor();
-                                                    Console.WriteLine(line);
+                                                    if (args[0] == "--bad"){
+
+                                                    }else{                                            
+
+                                                        Console.ForegroundColor = ConsoleColor.Green;
+                                                        Console.Write("[Good] ");
+                                                        Console.ResetColor();
+                                                        Console.WriteLine(line);
+
+                                                    }
 
                                                 }else if((int)response.StatusCode == 400 || (int)response.StatusCode == 404){
-                                                    
-                                                    Console.ForegroundColor = ConsoleColor.Red;
-                                                    Console.Write("[Bad] ");
-                                                    Console.ResetColor();
-                                                    Console.WriteLine(line);
+                                                                                                
+                                                    if(args[0] == "--good"){
+
+
+                                                    }else{
+
+                                                        Console.ForegroundColor = ConsoleColor.Red;
+                                                        Console.Write("[Bad] ");
+                                                        Console.ResetColor();
+                                                        Console.WriteLine(line);
+                                                        
+                                                    }
                                                 }
                                             }
                                    
@@ -196,13 +230,18 @@ namespace OSD600.GoodLinkOrBadLink
 
                                             }else{
 
-                                                Console.ForegroundColor = ConsoleColor.Gray;
-                                                Console.Write("[Unknown] ");
-                                                Console.ResetColor();
-                                                Console.WriteLine(line);   
-                                            }
-                                                                                     
+                                                if (args[0] == "--good" || args[0] == "--bad"){
 
+                                                } else {
+
+                                                    Console.ForegroundColor = ConsoleColor.Gray;
+                                                    Console.Write("[Unknown] ");
+                                                    Console.ResetColor();
+                                                    Console.WriteLine(line);   
+                                                }       
+
+                                            }
+                                                                               
                                         }
 
                                     }else{
@@ -237,5 +276,7 @@ namespace OSD600.GoodLinkOrBadLink
 
       
         }
+
     }
+    
 }

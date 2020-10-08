@@ -12,9 +12,13 @@ namespace OSD600.GoodLinkOrBadLink{
         public static void WelcomeManual(){
 
             Console.WriteLine("\nThank you for using GoodLinkOrBadLink!");
-            Console.WriteLine("\nRun the tool command with a file that contains URLs on your local machine and find out which are good links and which are not. For example: goodOrBad urls.txt" + 
-            "\nUse \"goodOrBad --v\" or \"goodOrBad --version\" or \"goodOrBad /v\" to get the current version of package." +
-            "\nUse \"goodOrBad --w\" or \"goodOrBad --wayback\" or \"goodOrBad /w\" to check Wayback machine's availability." +
+            Console.WriteLine("\nRun the tool command with a file that contains URLs on your local machine and find out which are good links and which are not. For example: goodOrBad urls.txt" +
+            "\nYou can also add options to run with your file." + 
+            "\n\nUse \"goodOrBad --v\" or \"goodOrBad --version\" to get the current version of package." +
+            "\nUse \"goodOrBad --w\" or \"goodOrBad --wayback\" to check Wayback machine's availability." + 
+            "\nUse \"goodOrBad --good\" to get URLs with status code 200." +
+            "\nUse \"goodOrBad --bad\" to get URLs with status code 400 or 404." +
+            "\nUse \"goodOrBad --all\" to get all URLs." +
             "\nUse \"goodOrBad --j\" or \"goodOrBad --json\" or \"goodOrBad /j\" to get JSON format output." + 
             "\nUse to \"goodOrBad *.txt\" to pass multiple files. ");
 
@@ -25,7 +29,8 @@ namespace OSD600.GoodLinkOrBadLink{
 
             if(argument.StartsWith("--") || argument.StartsWith("/")){
 
-                if(!Version(argument) && !WayBack(argument) && !JSON(argument)){
+                if(!Version(argument) && !WayBack(argument) && !JSON(argument) && !Filter(argument)){
+                
 
                     return false;
 
@@ -34,7 +39,6 @@ namespace OSD600.GoodLinkOrBadLink{
                     return true;
 
                 }
-
             
             }else{
 
@@ -107,9 +111,26 @@ namespace OSD600.GoodLinkOrBadLink{
 
             string[] args = {"-j", "--json", "/j"};
             List<string> jsonArgs = new List<string>(args);
-
             bool jsonOrNot = jsonArgs.Any(j => argument.Contains(j));
+
             if(jsonOrNot){
+
+                return true;
+
+            } else {
+                
+                return false;
+            }
+
+        }
+
+        public static bool Filter(string argument){
+
+            string[] args = {"--good", "--bad", "--all"};
+            List<string> filterArgs = new List<string>(args);
+            bool filterOrNot = filterArgs.Any(f => argument.Contains(f));
+
+            if(filterOrNot){
 
                 return true;
 
@@ -119,7 +140,9 @@ namespace OSD600.GoodLinkOrBadLink{
 
             }
             
-        }
+        }     
+
+
 
     }
 }
