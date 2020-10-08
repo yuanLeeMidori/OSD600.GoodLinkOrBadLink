@@ -1,0 +1,4 @@
+bin
+obj
+FormatChecker.cs
+HTTPStatusChecker.cs
