@@ -62,7 +62,7 @@ namespace OSD600.GoodLinkOrBadLink
                           
                     try{
                         string[] ignoreUrls = args.Length > 2 ? File.ReadAllLines(args[1]) : null;  // to ignore the urls in this file
-                        string filePath = args[0];
+                        string filePath = args.Length == 1 ? args[0] : null;
                         string ignoreFilePath = "";
                         List<string> globalPat = new List<string>();
 
@@ -157,7 +157,11 @@ namespace OSD600.GoodLinkOrBadLink
                                     System.Environment.Exit(1);
                                 }
                             
-                            
+                            }else if((ignoreURL && args.Length > 3) || (ignoreURL && args.Length < 3)) { 
+
+                                Console.WriteLine($"{args[0]} can only be passed with exactly two more arguments");
+                                System.Environment.Exit(1);
+
                             }
 
                             string[] fileContent = (globalPattern) ? null : File.ReadAllLines(filePath);
@@ -217,7 +221,7 @@ namespace OSD600.GoodLinkOrBadLink
                                                     HttpResponseMessage response = await client.GetAsync(line);
                                                     Console.WriteLine("{ \"url\": '" + line + "' , \"status\": " + (int)response.StatusCode + " }");
                                             
-                                            } if (ignoreURL ){
+                                            } /*if (ignoreURL){
                                                 try
                                                 {   
                                                 
@@ -235,9 +239,9 @@ namespace OSD600.GoodLinkOrBadLink
                                                     Console.WriteLine($"{ignoreUrls}");
                                                 }
 
-                                            } if(!ignoreUrls.Contains(line) && line.StartsWith("http")){
+                                            }*/ else {
                                                 // check if the url exists in the ignorelink list
-                                                //if () {
+                                                if (ignoreUrls != null && !ignoreUrls.Contains(line)) {
                                                     HttpResponseMessage response = await client.GetAsync(line);
 
                                                     if ((int)response.StatusCode == 200) {
@@ -267,7 +271,38 @@ namespace OSD600.GoodLinkOrBadLink
 
                                                         }
                                                     }
-                                                //}
+                                                }
+                                                else if(args.Length == 1) {
+                                                    HttpResponseMessage response = await client.GetAsync(line);
+
+                                                    if ((int)response.StatusCode == 200) {
+
+                                                        if (args[0] == "--bad") {
+
+                                                        } else {
+
+                                                            Console.ForegroundColor = ConsoleColor.Green;
+                                                            Console.Write("[Good] ");
+                                                            Console.ResetColor();
+                                                            Console.WriteLine(line);
+
+                                                        }
+
+                                                    } else if ((int)response.StatusCode == 400 || (int)response.StatusCode == 404) {
+
+                                                        if (args[0] == "--good") {
+
+
+                                                        } else {
+
+                                                            Console.ForegroundColor = ConsoleColor.Red;
+                                                            Console.Write("[Bad] ");
+                                                            Console.ResetColor();
+                                                            Console.WriteLine(line);
+
+                                                        }
+                                                    }
+                                                }
                                                 
                                             }
                                    
