@@ -63,7 +63,6 @@ namespace OSD600.GoodLinkOrBadLink
                     try{
                         string[] ignoreUrls = args.Length > 2 ? File.ReadAllLines(args[1]) : null;  // to ignore the urls in this file
                         string filePath = args.Length == 1 ? args[0] : null;
-                        string ignoreFilePath = "";
                         List<string> globalPat = new List<string>();
 
                             if (wayback) {
@@ -221,27 +220,19 @@ namespace OSD600.GoodLinkOrBadLink
                                                     HttpResponseMessage response = await client.GetAsync(line);
                                                     Console.WriteLine("{ \"url\": '" + line + "' , \"status\": " + (int)response.StatusCode + " }");
                                             
-                                            } /*if (ignoreURL){
-                                                try
-                                                {   
+                                            }else if (ignoreURL) {
                                                 
-                                                    for(int i = 0; i < ignoreUrls.Length; i++) {
-                                                        if (!ignoreUrls[i].StartsWith("http") && !ignoreUrls[i].StartsWith("#")) { 
-                                                            Console.WriteLine($"{ignoreUrls[i]} is an invalid link. All links in the ignore file must starts with 'http' or 'https'.");
-                                                            System.Environment.Exit(1);
-                                                        }
+                                                bool isIgnoreURL = false;
+                                                
+                                                for(int i = 0; i < ignoreUrls.Length; i++) { 
+                                                    if(line.Contains(ignoreUrls[i])) {
+                                                        isIgnoreURL = true;
+                                                        break;
                                                     }
-
-                                                }
-                                                catch (Exception)
-                                                {
-
-                                                    Console.WriteLine($"{ignoreUrls}");
                                                 }
 
-                                            }*/ else {
                                                 // check if the url exists in the ignorelink list
-                                                if (ignoreUrls != null && !ignoreUrls.Contains(line)) {
+                                                if (!isIgnoreURL) {
                                                     HttpResponseMessage response = await client.GetAsync(line);
 
                                                     if ((int)response.StatusCode == 200) {
@@ -272,7 +263,7 @@ namespace OSD600.GoodLinkOrBadLink
                                                         }
                                                     }
                                                 }
-                                                else if(args.Length == 1) {
+                                            }else{
                                                     HttpResponseMessage response = await client.GetAsync(line);
 
                                                     if ((int)response.StatusCode == 200) {
@@ -304,7 +295,6 @@ namespace OSD600.GoodLinkOrBadLink
                                                     }
                                                 }
                                                 
-                                            }
                                    
                                         }catch(HttpRequestException){
 
