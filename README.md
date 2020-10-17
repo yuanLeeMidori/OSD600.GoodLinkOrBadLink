@@ -33,6 +33,7 @@ After installation, use the command `goodOrBad` as a command line tool along wit
 * Check the output with JSON format with `goodOrBad --j <filename>` or `goodOrBad --json <filename>` command.
 * Check the output with filters such as `goodOrBad --good <filename>` to get the URLs with 200 status code exclusively; `goodOrBad --bad <filename>` to get the URLs with 400 or 404 status code. 
 * You can also check pass multiple files using regex, e.g. `goodOrBad *.txt` which will check all the .txt files in the current directory. 
+* You can ignore URL checking by passing a file with ignored links using `goodOrBad --ignore <ignore_url_filename> <filename>` or `goodOrBad -i <ignore_url_filename> <filename>` or `goodOrBad \i <ignore_url_filename> <filename>` command. 
 
 You can use this *goodOrBad* command in any directory. You can either move to the directory that contains the file that you want to test, or just simply use file path and run it with the command.
 
