@@ -29,7 +29,7 @@ namespace OSD600.GoodLinkOrBadLink{
 
             if(argument.StartsWith("--") || argument.StartsWith("/")){
 
-                if(!Version(argument) && !WayBack(argument) && !JSON(argument) && !Filter(argument)){
+                if(!Version(argument) && !WayBack(argument) && !JSON(argument) && !Filter(argument) && !Ignore(argument)){
                 
 
                     return false;
@@ -140,7 +140,29 @@ namespace OSD600.GoodLinkOrBadLink{
 
             }
             
-        }     
+        }
+
+        public static bool Ignore(string argument)
+        {
+
+            string[] args = { "-i", "--ignore", @"\i" };
+            List<string> ignoreArgs = new List<string>(args);
+            bool ignoreOrNot = ignoreArgs.Any(f => argument.Contains(f));
+
+            if (ignoreOrNot)
+            {
+
+                return true;
+
+            }
+            else
+            {
+
+                return false;
+
+            }
+
+        }
 
 
 

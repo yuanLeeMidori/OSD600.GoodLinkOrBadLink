@@ -32,6 +32,7 @@ namespace OSD600.GoodLinkOrBadLink
                 bool json = CLIUsage.JSON(args[0]);
                 bool filter = CLIUsage.Filter(args[0]);
                 bool globalPattern = CLIUsage.GlobalPattern(args[0]);
+                bool ignoreURL = CLIUsage.Ignore(args[0]);
 
                 if(!option){
 
@@ -41,7 +42,8 @@ namespace OSD600.GoodLinkOrBadLink
                                       "\n --j to get JSON format output" +
                                       "\n --good to return URLs with 200 status code," +
                                       "\n --bad to return URLs with 400 or 404 status code" +
-                                      "\n --all to return all URLs");
+                                      "\n --all to return all URLs" +
+                                      "\n -i or --ignore or \\i to ignore links and paste them in another .txt file");
                     Environment.Exit(0);
 
                 }
@@ -59,8 +61,9 @@ namespace OSD600.GoodLinkOrBadLink
                 }else{
                           
                     try{
-
+                        string[] ignoreUrls = args.Length > 2 ? File.ReadAllLines(args[1]) : null;  // to ignore the urls in this file
                         string filePath = args[0];
+                        string ignoreFilePath = "";
                         List<string> globalPat = new List<string>();
 
                             if (wayback) {
@@ -132,6 +135,31 @@ namespace OSD600.GoodLinkOrBadLink
 
                             }
 
+                            if(ignoreURL && args.Length == 3) {
+
+                                try
+                                {
+                                    for (int i = 0; i < ignoreUrls.Length; i++)
+                                    {
+                                        if (!ignoreUrls[i].StartsWith("http") && !ignoreUrls[i].StartsWith("#"))
+                                        {
+                                            Console.WriteLine($"{ignoreUrls[i]} is an invalid link. All links in the ignore file must starts with 'http' or 'https'.");
+                                            System.Environment.Exit(1);
+                                        }
+                                    }
+
+                                    // The last argument will be the file to check in question
+                                    filePath = args.Last();
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Missing file input");
+                                    System.Environment.Exit(1);
+                                }
+                            
+                            
+                            }
+
                             string[] fileContent = (globalPattern) ? null : File.ReadAllLines(filePath);
                           
                             if (globalPat.Count < 1 && (fileContent == null || fileContent.Length < 1)){
@@ -139,11 +167,11 @@ namespace OSD600.GoodLinkOrBadLink
                                 Console.WriteLine("\"{0}\" is empty, there is nothing to test", filePath);
                             
                             }else{
-        
+                                
                                 Regex rx = new Regex(@"https?://[a-zA-Z0-9@:%._\+~#=]");
                                 string[] urls = (globalPat.Count > 1) ? globalPat.ToArray() : File.ReadAllLines(filePath);
                                 List<string> lines = new List<string>();
-                        
+                                
                                 foreach(String line in urls){       
                                    
                                     if(rx.IsMatch(line)){
@@ -188,38 +216,59 @@ namespace OSD600.GoodLinkOrBadLink
 
                                                     HttpResponseMessage response = await client.GetAsync(line);
                                                     Console.WriteLine("{ \"url\": '" + line + "' , \"status\": " + (int)response.StatusCode + " }");
-                                               
-                                            }else {
-
-                                                HttpResponseMessage response = await client.GetAsync(line);
-
-                                                if((int)response.StatusCode == 200){
-
-                                                    if (args[0] == "--bad"){
-
-                                                    }else{                                            
-
-                                                        Console.ForegroundColor = ConsoleColor.Green;
-                                                        Console.Write("[Good] ");
-                                                        Console.ResetColor();
-                                                        Console.WriteLine(line);
-
+                                            
+                                            } if (ignoreURL ){
+                                                try
+                                                {   
+                                                
+                                                    for(int i = 0; i < ignoreUrls.Length; i++) {
+                                                        if (!ignoreUrls[i].StartsWith("http") && !ignoreUrls[i].StartsWith("#")) { 
+                                                            Console.WriteLine($"{ignoreUrls[i]} is an invalid link. All links in the ignore file must starts with 'http' or 'https'.");
+                                                            System.Environment.Exit(1);
+                                                        }
                                                     }
 
-                                                }else if((int)response.StatusCode == 400 || (int)response.StatusCode == 404){
-                                                                                                
-                                                    if(args[0] == "--good"){
-
-
-                                                    }else{
-
-                                                        Console.ForegroundColor = ConsoleColor.Red;
-                                                        Console.Write("[Bad] ");
-                                                        Console.ResetColor();
-                                                        Console.WriteLine(line);
-                                                        
-                                                    }
                                                 }
+                                                catch (Exception)
+                                                {
+
+                                                    Console.WriteLine($"{ignoreUrls}");
+                                                }
+
+                                            } if(!ignoreUrls.Contains(line) && line.StartsWith("http")){
+                                                // check if the url exists in the ignorelink list
+                                                //if () {
+                                                    HttpResponseMessage response = await client.GetAsync(line);
+
+                                                    if ((int)response.StatusCode == 200) {
+
+                                                        if (args[0] == "--bad") {
+
+                                                        } else {
+
+                                                            Console.ForegroundColor = ConsoleColor.Green;
+                                                            Console.Write("[Good] ");
+                                                            Console.ResetColor();
+                                                            Console.WriteLine(line);
+
+                                                        }
+
+                                                    } else if ((int)response.StatusCode == 400 || (int)response.StatusCode == 404) {
+
+                                                        if (args[0] == "--good") {
+
+
+                                                        } else {
+
+                                                            Console.ForegroundColor = ConsoleColor.Red;
+                                                            Console.Write("[Bad] ");
+                                                            Console.ResetColor();
+                                                            Console.WriteLine(line);
+
+                                                        }
+                                                    }
+                                                //}
+                                                
                                             }
                                    
                                         }catch(HttpRequestException){
