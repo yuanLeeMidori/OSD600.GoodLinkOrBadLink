@@ -9,23 +9,14 @@ using System.Threading.Tasks;
 using System.Reflection;
 using Newtonsoft.Json;
 
-namespace OSD600.GoodLinkOrBadLink
-{
-    class Program
-    {
+namespace OSD600.GoodLinkOrBadLink {
+    class Program {
         static readonly HttpClient client = new HttpClient();
-        static async Task Main(string[] args)
-        {
-            if (args.Length == 0)
-            {
-                
+        static async Task Main(string[] args) {
+            if (args.Length == 0) {
                 CLIUsage.WelcomeManual();
-
-                return;
-
-                               
-            }else{
-                
+                return;                            
+            } else {                
                 bool option = CLIUsage.isOption(args[0]);
                 bool version = CLIUsage.Version(args[0]);
                 bool wayback = CLIUsage.WayBack(args[0]);
@@ -33,9 +24,7 @@ namespace OSD600.GoodLinkOrBadLink
                 bool filter = CLIUsage.Filter(args[0]);
                 bool globalPattern = CLIUsage.GlobalPattern(args[0]);
                 bool ignoreURL = CLIUsage.Ignore(args[0]);
-
-                if(!option){
-
+                if (!option) {
                     Console.WriteLine("The input option \"" + args[0] + "\" is invalid. Try" +  
                                       "\n\n --v to get version," + 
                                       "\n --w to get Wayback," +
@@ -45,312 +34,169 @@ namespace OSD600.GoodLinkOrBadLink
                                       "\n --all to return all URLs" +
                                       "\n -i or --ignore or \\i to ignore links and paste them in another .txt file");
                     Environment.Exit(0);
-
                 }
 
-                if (version){
-
+                if (version) {
                     var versionString = Assembly.GetEntryAssembly()
                                         .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
                                         .InformationalVersion
                                         .ToString();
-
                     Console.WriteLine($"OSD600.GoodLinkOrBadLink v{versionString}");
-
-
-                }else{
-                          
-                    try{
+                } else {                          
+                    try {
                         string[] ignoreUrls = args.Length > 2 ? File.ReadAllLines(args[1]) : null;  // to ignore the urls in this file
                         string filePath = args.Length == 1 ? args[0] : null;
                         List<string> globalPat = new List<string>();
 
                             if (wayback) {
-
                                 try {
-
                                     filePath = args[1];
-
                                 } catch(Exception) {
-
-                                    Console.WriteLine("Missing file input");
-                                    System.Environment.Exit(1);
-
+                                    throw new FileMissingException("wayback");
                                 }
-
                             }
 
-                            if(json){
-
-                                try{
-
+                            if (json) {
+                                try {
                                     filePath = args[1];
-
-                                }catch(Exception){
-
-                                    Console.WriteLine("Missing file input");
-                                    System.Environment.Exit(1);
+                                } catch(Exception) {
+                                    throw new FileMissingException("json");                                    
                                 }
-
                             }
 
                             if (filter) {
-
                                 try {
-
                                     filePath = args[1];
-
                                 } catch(Exception) {
-
-                                    Console.WriteLine("Missing file input");
-                                    System.Environment.Exit(1);
-                                    
+                                    throw new FileMissingException("good/bad filter");                                    
                                 }
                             }
 
                             if (globalPattern) {
-
                                 try{
-
                                     string path = Directory.GetCurrentDirectory();
-
-                                    foreach (var file in Directory.GetFiles(path, args[0])){
-
+                                    foreach (var file in Directory.GetFiles(path, args[0])) {
                                         Console.WriteLine("Reading \"{0}\"...", file.Split("/").Last());
-
-                                        foreach (var i in File.ReadAllLines(file)){
-                                    
+                                        foreach (var i in File.ReadAllLines(file)) {                            
                                             globalPat.Add(i);
-
                                         }
-
                                     }
                                 }
-                                catch (Exception){
-
-                                    Console.WriteLine("Missing file(s)...");
-
+                                catch (Exception) {
+                                    throw new FileMissingException();
                                 }
-
                             }
-
-                            if(ignoreURL && args.Length == 3) {
-
-                                try
-                                {
-                                    for (int i = 0; i < ignoreUrls.Length; i++)
-                                    {
-                                        if (!ignoreUrls[i].StartsWith("http") && !ignoreUrls[i].StartsWith("#"))
-                                        {
+                            if (ignoreURL && args.Length == 3) {
+                                try {
+                                    for (int i = 0; i < ignoreUrls.Length; i++) {
+                                        if (!ignoreUrls[i].StartsWith("http") && !ignoreUrls[i].StartsWith("#")) {
                                             Console.WriteLine($"{ignoreUrls[i]} is an invalid link. All links in the ignore file must starts with 'http' or 'https'.");
                                             System.Environment.Exit(1);
                                         }
                                     }
-
                                     // The last argument will be the file to check in question
                                     filePath = args.Last();
-                                }
-                                catch (Exception)
-                                {
-                                    Console.WriteLine("Missing file input");
-                                    System.Environment.Exit(1);
-                                }
-                            
+                                }catch (Exception) {
+                                    throw new FileMissingException("ignore", "2");
+                                }                            
                             }else if((ignoreURL && args.Length > 3) || (ignoreURL && args.Length < 3)) { 
-
-                                Console.WriteLine($"{args[0]} can only be passed with exactly two more arguments");
-                                System.Environment.Exit(1);
-
+                                throw new FileMissingException("ignore", "2");
                             }
 
                             string[] fileContent = (globalPattern) ? null : File.ReadAllLines(filePath);
                           
-                            if (globalPat.Count < 1 && (fileContent == null || fileContent.Length < 1)){
-                                
-                                Console.WriteLine("\"{0}\" is empty, there is nothing to test", filePath);
-                            
-                            }else{
-                                
+                            if (globalPat.Count < 1 && (fileContent == null || fileContent.Length < 1)) {                                
+                                Console.WriteLine("\"{0}\" is empty, there is nothing to test", filePath);                        
+                            } else {                                
                                 Regex rx = new Regex(@"https?://[a-zA-Z0-9@:%._\+~#=]");
                                 string[] urls = (globalPat.Count > 1) ? globalPat.ToArray() : File.ReadAllLines(filePath);
-                                List<string> lines = new List<string>();
-                                
-                                foreach(String line in urls){       
-                                   
-                                    if(rx.IsMatch(line)){
-                
-                                        try{
-
+                                List<string> lines = new List<string>();                                
+                                foreach (String line in urls) {                                          
+                                    if (rx.IsMatch(line)) {                
+                                        try {
                                             if (wayback) {
-
                                                 var jsonString = new WebClient().DownloadString("http://archive.org/wayback/available?url=" + line);
                                                 dynamic x = Newtonsoft.Json.JsonConvert.DeserializeObject(jsonString);
                                                 var archived = x.archived_snapshots;
                                                 dynamic available;
-
                                                 try {
-
                                                     var closest = archived.closest;
                                                     available = closest.available;
-
-                                                }catch(Exception){
-
+                                                } catch(Exception) {
                                                     available = false;
-
                                                 }
-
                                                 if ((bool)available) {
-
-                                                    Console.ForegroundColor = ConsoleColor.Green;
-                                                    Console.Write("[Available] ");
-                                                    Console.ResetColor();
-                                                    Console.WriteLine(line);
-
+                                                    CustomConsoleOutput.WriteInGreen("Available", line);
                                                 } else {
-
-                                                    Console.ForegroundColor = ConsoleColor.Red;
-                                                    Console.Write("[Not Available] ");
-                                                    Console.ResetColor();
-                                                    Console.WriteLine(line);
-
+                                                    CustomConsoleOutput.WriteInRed("Not Available", line);
                                                 }   
-
-                                            }else if(json){
-
+                                            } else if(json) {
                                                     HttpResponseMessage response = await client.GetAsync(line);
-                                                    Console.WriteLine("{ \"url\": '" + line + "' , \"status\": " + (int)response.StatusCode + " }");
-                                            
-                                            }else if (ignoreURL) {
-                                                
-                                                bool isIgnoreURL = false;
-                                                
+                                                    Console.WriteLine("{ \"url\": '" + line + "' , \"status\": " + (int)response.StatusCode + " }");                                            
+                                            }else if (ignoreURL) {                                                
+                                                bool isIgnoreURL = false;                                                
                                                 for(int i = 0; i < ignoreUrls.Length; i++) { 
                                                     if(line.Contains(ignoreUrls[i])) {
                                                         isIgnoreURL = true;
                                                         break;
                                                     }
                                                 }
-
                                                 // check if the url exists in the ignorelink list
                                                 if (!isIgnoreURL) {
                                                     HttpResponseMessage response = await client.GetAsync(line);
-
                                                     if ((int)response.StatusCode == 200) {
-
-                                                        if (args[0] == "--bad") {
-
+                                                        if (args[0] == "--bad") {                                                            
                                                         } else {
-
-                                                            Console.ForegroundColor = ConsoleColor.Green;
-                                                            Console.Write("[Good] ");
-                                                            Console.ResetColor();
-                                                            Console.WriteLine(line);
-
+                                                            CustomConsoleOutput.WriteInGreen("Good", line);
                                                         }
-
                                                     } else if ((int)response.StatusCode == 400 || (int)response.StatusCode == 404) {
-
                                                         if (args[0] == "--good") {
-
-
                                                         } else {
-
-                                                            Console.ForegroundColor = ConsoleColor.Red;
-                                                            Console.Write("[Bad] ");
-                                                            Console.ResetColor();
-                                                            Console.WriteLine(line);
-
+                                                            CustomConsoleOutput.WriteInRed("Bad", line);
                                                         }
                                                     }
                                                 }
-                                            }else{
+                                            } else {
                                                     HttpResponseMessage response = await client.GetAsync(line);
-
                                                     if ((int)response.StatusCode == 200) {
-
                                                         if (args[0] == "--bad") {
-
                                                         } else {
-
-                                                            Console.ForegroundColor = ConsoleColor.Green;
-                                                            Console.Write("[Good] ");
-                                                            Console.ResetColor();
-                                                            Console.WriteLine(line);
-
+                                                            CustomConsoleOutput.WriteInGreen("Good", line);
                                                         }
-
                                                     } else if ((int)response.StatusCode == 400 || (int)response.StatusCode == 404) {
-
                                                         if (args[0] == "--good") {
-
-
                                                         } else {
-
-                                                            Console.ForegroundColor = ConsoleColor.Red;
-                                                            Console.Write("[Bad] ");
-                                                            Console.ResetColor();
-                                                            Console.WriteLine(line);
-
+                                                            CustomConsoleOutput.WriteInRed("Bad", line);
                                                         }
                                                     }
-                                                }
-                                                
-                                   
+                                                }                    
+
                                         }catch(HttpRequestException){
-
-                                            if(json){
-
+                                            if (json) {
                                                 Console.WriteLine("{ \"url\": '" + line + "': \"status\": 'unknown' }");
-
-                                            }else{
-
-                                                if (args[0] == "--good" || args[0] == "--bad"){
-
+                                            } else {
+                                                if (args[0] == "--good" || args[0] == "--bad") {
                                                 } else {
-
                                                     Console.ForegroundColor = ConsoleColor.Gray;
                                                     Console.Write("[Unknown] ");
                                                     Console.ResetColor();
                                                     Console.WriteLine(line);   
                                                 }       
-
-                                            }
-                                                                               
+                                            }                                                                               
                                         }
-
-                                    }else{
-
-                                        Console.WriteLine("not a URL");
+                                    } else {
+                                        Console.WriteLine("This is not a URL");
                                     }
                                 }
                 } 
 
-                    }catch(FileNotFoundException e){
-
-                        Console.BackgroundColor = ConsoleColor.Yellow;
-                        Console.ForegroundColor = ConsoleColor.Black;
-                        Console.Write("Warning: ");
-                        Console.ResetColor();
-                        Console.WriteLine(e.Message);
-                        
-                    }catch(Exception e){
-
-                        Console.BackgroundColor = ConsoleColor.Yellow;
-                        Console.ForegroundColor = ConsoleColor.Black;
-                        Console.Write("Warning: ");
-                        Console.ResetColor();
-                        Console.WriteLine(e.Message);
-
+                    } catch(FileNotFoundException e) {
+                        CustomConsoleOutput.WriteWarning("Warning", e.Message);                   
+                    } catch (Exception e){
+                        CustomConsoleOutput.WriteWarning("Warning", e.Message);  
                     }
-
-                }
-
-                
-            }
-
-      
+                }                
+            }    
         }
-
-    }
-    
+    }    
 }
