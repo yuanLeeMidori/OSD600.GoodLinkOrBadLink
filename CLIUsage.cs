@@ -17,12 +17,13 @@ namespace OSD600.GoodLinkOrBadLink {
             "\nUse \"goodOrBad --bad\" to get URLs with status code 400 or 404." +
             "\nUse \"goodOrBad --all\" to get all URLs." +
             "\nUse \"goodOrBad --j\" or \"goodOrBad --json\" or \"goodOrBad /j\" to get JSON format output." + 
-            "\nUse to \"goodOrBad *.txt\" to pass multiple files. ");                
+            "\nUse \"goodOrBad *.txt\" to pass multiple files. " +
+            "\nUse \"goodOrBad --t\" or \"goodOrBad --telescope\" to check the latest 10 posts from Telescope.");                
         }
 
         public static bool isOption(string argument) {
             if (argument.StartsWith("--") || argument.StartsWith("/")) {
-                if (!Version(argument) && !WayBack(argument) && !JSON(argument) && !Filter(argument) && !Ignore(argument)) {                
+                if (!Version(argument) && !WayBack(argument) && !JSON(argument) && !Filter(argument) && !Ignore(argument) && !Telescope(argument)) {                
                     return false;
                 } else {
                     return true;
@@ -95,6 +96,16 @@ namespace OSD600.GoodLinkOrBadLink {
             List<string> ignoreArgs = new List<string>(args);
             bool ignoreOrNot = ignoreArgs.Any(f => argument.Contains(f));
             if (ignoreOrNot) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        public static bool Telescope(string argument) {
+            string[] args = { "-t", "--telescope", @"\t" };
+            List<string> teleArgs = new List<string>(args);
+            bool telescopeOrNot = teleArgs.Any(t => argument.Contains(t));
+            if (telescopeOrNot) {
                 return true;
             } else {
                 return false;

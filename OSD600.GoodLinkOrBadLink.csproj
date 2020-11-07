@@ -5,21 +5,20 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-
-    <Version>1.0.7</Version>
+    <PackageLicenseFile>License</PackageLicenseFile>
+    <Version>1.0.8</Version>
     
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>goodOrBad</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
-
     <Authors>Yuan-Hsi Lee, Roger Yu, Abu Zayed Kazi</Authors>
     
   </PropertyGroup>
 
   <ItemGroup>
-        <None Include="LICENSE" Pack="true" PackagePath="LICENSE" />
+    <None Include="License" Pack="true" Visible="false" PackagePath=""/>
   </ItemGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>

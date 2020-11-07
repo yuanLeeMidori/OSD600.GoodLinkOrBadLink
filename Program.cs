@@ -24,6 +24,7 @@ namespace OSD600.GoodLinkOrBadLink {
                 bool filter = CLIUsage.Filter(args[0]);
                 bool globalPattern = CLIUsage.GlobalPattern(args[0]);
                 bool ignoreURL = CLIUsage.Ignore(args[0]);
+                bool telescope = CLIUsage.Telescope(args[0]);
                 if (!option) {
                     Console.WriteLine("The input option \"" + args[0] + "\" is invalid. Try" +  
                                       "\n\n --v to get version," + 
@@ -32,7 +33,8 @@ namespace OSD600.GoodLinkOrBadLink {
                                       "\n --good to return URLs with 200 status code," +
                                       "\n --bad to return URLs with 400 or 404 status code" +
                                       "\n --all to return all URLs" +
-                                      "\n -i or --ignore or \\i to ignore links and paste them in another .txt file");
+                                      "\n -i or --ignore or \\i to ignore links and paste them in another .txt file" + 
+                                      "\n -t or --telescope or \\t to check the latest 10 posts in Telescope");
                     Environment.Exit(0);
                 }
 
@@ -86,6 +88,7 @@ namespace OSD600.GoodLinkOrBadLink {
                                     throw new FileMissingException();
                                 }
                             }
+
                             if (ignoreURL && args.Length == 3) {
                                 try {
                                     for (int i = 0; i < ignoreUrls.Length; i++) {
@@ -101,6 +104,30 @@ namespace OSD600.GoodLinkOrBadLink {
                                 }                            
                             }else if((ignoreURL && args.Length > 3) || (ignoreURL && args.Length < 3)) { 
                                 throw new FileMissingException("ignore", "2");
+                            }
+
+                            if (telescope && args.Length == 1) {
+                                try{
+                                    var telescopeData = new WebClient().DownloadString("http://localhost:4000/posts");
+                                    dynamic o = Newtonsoft.Json.JsonConvert.DeserializeObject(telescopeData);
+                                    foreach (var t in o) {
+                                        string postUrl = "http://localhost:4000" + t.url;
+                                        HttpResponseMessage response = await client.GetAsync(postUrl);
+                                        if ((int)response.StatusCode == 200) {
+                                            CustomConsoleOutput.WriteInGreen("Good", postUrl);                                        
+                                        } else if ((int)response.StatusCode == 400 || (int)response.StatusCode == 404) {                                       
+                                            CustomConsoleOutput.WriteInRed("Bad", postUrl);                                        
+                                        } else {
+                                            Console.WriteLine(telescopeData);
+                                        }
+                                    } 
+                                } catch (Exception){
+                                    Console.WriteLine("Telescope is not running on localhost 4000, please check the connection.");
+                                }                                
+                                System.Environment.Exit(1);
+                            } else if (telescope && args.Length != 1) {
+                                Console.WriteLine("Please don't include argument(s) with telescope feature");
+                                System.Environment.Exit(1);
                             }
 
                             string[] fileContent = (globalPattern) ? null : File.ReadAllLines(filePath);
@@ -131,8 +158,8 @@ namespace OSD600.GoodLinkOrBadLink {
                                                     CustomConsoleOutput.WriteInRed("Not Available", line);
                                                 }   
                                             } else if(json) {
-                                                    HttpResponseMessage response = await client.GetAsync(line);
-                                                    Console.WriteLine("{ \"url\": '" + line + "' , \"status\": " + (int)response.StatusCode + " }");                                            
+                                                HttpResponseMessage response = await client.GetAsync(line);
+                                                Console.WriteLine("{ \"url\": '" + line + "' , \"status\": " + (int)response.StatusCode + " }");                                            
                                             }else if (ignoreURL) {                                                
                                                 bool isIgnoreURL = false;                                                
                                                 for(int i = 0; i < ignoreUrls.Length; i++) { 
