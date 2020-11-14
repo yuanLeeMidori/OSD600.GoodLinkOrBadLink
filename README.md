@@ -2,10 +2,6 @@
 
 This command line tool helps you to test bundles of URLs. Just install the tool and run it with your file that contains the URLs that you're not sure which of them are valid and which of them are not.
 
-#### Environment
-
-You'll need dotnet core SDK environment to use this tool and run the source code. Here is the link for download https://dotnet.microsoft.com/download. Dotnet core is available for Linux OS, macOS, and Windows. 
-
 
 #### Install the tool
 
@@ -38,9 +34,3 @@ After installation, use the command `goodOrBad` as a command line tool along wit
 You can use this *goodOrBad* command in any directory. You can either move to the directory that contains the file that you want to test, or just simply use file path and run it with the command.
 
 If the file path you're passing doesn't exist, you'll get a warning message. If the option you're passing is invalid, you'll get a short list of valid options.
-
-
-#### Run the source code
-
-After cloning the repo on GitHub, change directory to it and use `dotnet run` with the argument (e.g. file name, `--v` or `--w`) to run the Program.cs. For example, `dotnet run localFile.txt` or `dotnet run --w localFile.txt`. Or you can download the source code and use IDE such as Visual Studio to run the project. 
-
