@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-
 namespace OSD600.GoodLinkOrBadLink
 {
     class CLIUsage
