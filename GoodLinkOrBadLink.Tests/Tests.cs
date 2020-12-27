@@ -51,6 +51,41 @@ namespace GoodLinkOrBadLink.Tests
         }
 
         [Test]
+        public void WayBack_ValidOptions_ReturnTrue()
+        {
+            //arrange
+            string isWayBackOption_1 = "--w";
+            string isWayBackOption_2 = "--wayback";
+            string isWayBackOption_3 = "/w";
+
+            //act
+            var underTestT_1 = CLIUsage.WayBack(isWayBackOption_1);
+            var underTestT_2 = CLIUsage.WayBack(isWayBackOption_2);
+            var underTestT_3 = CLIUsage.WayBack(isWayBackOption_3);
+
+            //assert
+            Assert.IsTrue(underTestT_1);
+            Assert.IsTrue(underTestT_2);
+            Assert.IsTrue(underTestT_3);
+        }
+
+        [Test]
+        public void WayBack_ValidOptions_ReturnFalse()
+        {
+            //arrange
+            string isNotWayBackOption_1 = "--v";
+            string isNotWayBackOption_2 = "/j";
+
+            //act
+            var underTestF_1 = CLIUsage.WayBack(isNotWayBackOption_1);
+            var underTestF_2 = CLIUsage.WayBack(isNotWayBackOption_2);
+
+            //assert
+            Assert.IsFalse(underTestF_1);
+            Assert.IsFalse(underTestF_2);
+        }
+
+        [Test]
         public void isOption_ValidOptions_ReturnTrue()
         {
             //arrange
