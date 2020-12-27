@@ -34,3 +34,7 @@ After installation, use the command `goodOrBad` as a command line tool along wit
 You can use this *goodOrBad* command in any directory. You can either move to the directory that contains the file that you want to test, or just simply use file path and run it with the command.
 
 If the file path you're passing doesn't exist, you'll get a warning message. If the option you're passing is invalid, you'll get a short list of valid options.
+
+#### How to contribute
+
+Please read `CONTRIBUTING.md`.

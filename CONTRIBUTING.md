@@ -34,3 +34,8 @@ After installing this linter tool, you may use the command below and get the ana
 ```
 jb inspectcode -o="report.xml" OSD600.GoodLinkOrBadLink.csproj
 ```
+
+#### Run test
+
+After you modify the content of program files, please move to `GoodLinkOrBadLink.Tests` directory and run `dotnet test` to run the tests and make sure they are all passed. If there is any failed test, your PR will not pass CI and your PR'll be asked for changes.
+
