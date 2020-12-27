@@ -14,7 +14,7 @@ namespace OSD600.GoodLinkOrBadLink
     class Program
     {
         static readonly HttpClient client = new HttpClient();
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
             if (args.Length == 0)
             {
@@ -151,12 +151,12 @@ namespace OSD600.GoodLinkOrBadLink
                                 foreach (var t in o)
                                 {
                                     string postUrl = "http://localhost:4000" + t.url;
-                                    HttpResponseMessage response = await client.GetAsync(postUrl);
-                                    if ((int)response.StatusCode == 200)
+                                    var code = CheckURL.GetURLStatusCode(postUrl);
+                                    if (code == 200)
                                     {
                                         CustomConsoleOutput.WriteInGreen("Good", postUrl);
                                     }
-                                    else if ((int)response.StatusCode == 400 || (int)response.StatusCode == 404)
+                                    else if (code == 400 || code == 404)
                                     {
                                         CustomConsoleOutput.WriteInRed("Bad", postUrl);
                                     }
@@ -221,8 +221,15 @@ namespace OSD600.GoodLinkOrBadLink
                                         }
                                         else if (json)
                                         {
-                                            HttpResponseMessage response = await client.GetAsync(line);
-                                            Console.WriteLine("{ \"url\": '" + line + "' , \"status\": " + (int)response.StatusCode + " }");
+                                            var code = (int)CheckURL.GetURLStatusCode(line);
+                                            if (code == 0)
+                                            {
+                                                Console.WriteLine("{ \"url\": '" + line + "' , \"status\": unknown }");
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("{ \"url\": '" + line + "' , \"status\": " + code + " }");
+                                            }
                                         }
                                         else if (ignoreURL)
                                         {
@@ -238,8 +245,8 @@ namespace OSD600.GoodLinkOrBadLink
                                             // check if the url exists in the ignorelink list
                                             if (!isIgnoreURL)
                                             {
-                                                HttpResponseMessage response = await client.GetAsync(line);
-                                                if ((int)response.StatusCode == 200)
+                                                var code = (int)CheckURL.GetURLStatusCode(line);
+                                                if (code == 200)
                                                 {
                                                     if (args[0] == "--bad")
                                                     {
@@ -249,7 +256,7 @@ namespace OSD600.GoodLinkOrBadLink
                                                         CustomConsoleOutput.WriteInGreen("Good", line);
                                                     }
                                                 }
-                                                else if ((int)response.StatusCode == 400 || (int)response.StatusCode == 404)
+                                                else if (code == 400 || code == 404)
                                                 {
                                                     if (args[0] == "--good")
                                                     {
@@ -263,8 +270,8 @@ namespace OSD600.GoodLinkOrBadLink
                                         }
                                         else
                                         {
-                                            HttpResponseMessage response = await client.GetAsync(line);
-                                            if ((int)response.StatusCode == 200)
+                                            var code = (int)CheckURL.GetURLStatusCode(line);
+                                            if (code == 200)
                                             {
                                                 if (args[0] == "--bad")
                                                 {
@@ -274,7 +281,7 @@ namespace OSD600.GoodLinkOrBadLink
                                                     CustomConsoleOutput.WriteInGreen("Good", line);
                                                 }
                                             }
-                                            else if ((int)response.StatusCode == 400 || (int)response.StatusCode == 404)
+                                            else if (code == 400 || code == 404)
                                             {
                                                 if (args[0] == "--good")
                                                 {
