@@ -6,8 +6,12 @@ using System.Reflection;
 
 namespace OSD600.GoodLinkOrBadLink
 {
-    class CLIUsage
+    public class CLIUsage
     {
+        public CLIUsage()
+        {
+
+        }
         public static void WelcomeManual()
         {
             Console.WriteLine("\nThank you for using GoodLinkOrBadLink!");
