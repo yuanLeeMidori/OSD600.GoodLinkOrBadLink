@@ -11,7 +11,7 @@ Use this command to install the tool:
 
 Use this command to install the specific version:
 
-`dotnet tool install -g OSD600.GoodLinkOrBadLink --version *the-version-you-want*`
+`dotnet tool install -g OSD600.GoodLinkOrBadLink --version <the-version-you-want>`
 
 Use this command to upgrade to the latest version:
 
@@ -25,11 +25,12 @@ Use this command to uninstall the tool:
 
 After installation, use the command `goodOrBad` as a command line tool along with a file arguement that you would like to check. For example, the file on your local machine is `urls.txt`, use the command `goodOrBad urls.txt` to run the tool. 
 * Check the version of this tool with `goodOrBad --v`, `goodOrBad --version`, or `goodOrBad /v` command. 
-* Check the wayback availiability with `goodOrBad --w <filename>` or `goodOrBad --wayback <filename>` command. 
-* Check the output with JSON format with `goodOrBad --j <filename>` or `goodOrBad --json <filename>` command.
-* Check the output with filters such as `goodOrBad --good <filename>` to get the URLs with 200 status code exclusively; `goodOrBad --bad <filename>` to get the URLs with 400 or 404 status code. 
-* You can also check pass multiple files using regex, e.g. `goodOrBad *.txt` which will check all the .txt files in the current directory. 
-* You can ignore URL checking by passing a file with ignored links using `goodOrBad --ignore <ignore_url_filename> <filename>` or `goodOrBad -i <ignore_url_filename> <filename>` or `goodOrBad \i <ignore_url_filename> <filename>` command. 
+* Check the wayback availiability with `goodOrBad --w <filename>`, `goodOrBad --wayback <filename>`, or `goodOrBad /w <filename>` command. 
+* Check the output with JSON format with `goodOrBad --j <filename>`, `goodOrBad --json <filename>`, or `goodOrBad /j <filename>` command.
+* Check the output with filters such as `goodOrBad --good <filename>` to get the URLs with 200 status code exclusively; `goodOrBad --bad <filename>` to get the URLs with only 400 or 404 status code; `goodOrBad --all <filename>` returns all URLs with their status code. 
+* Check urls in multiple files using regex, e.g. `goodOrBad *.txt` which will check all the .txt files in the current directory. 
+* Filter out specific pattern (pack the patterns within a file) with `goodOrBad --ignore <ignore_url_filename> <filename>` or `goodOrBad -i <ignore_url_filename> <filename>` or `goodOrBad /i <ignore_url_filename> <filename>` command. 
+* Check the latest 10 posts from [Telescope](https://github.com/Seneca-CDOT/telescope) with `goodOrBad --t`, `goodOrBad --telescope`, or `goodOrBad /t` command. (Telescope project has to be running on the same machine.)
 
 You can use this *goodOrBad* command in any directory. You can either move to the directory that contains the file that you want to test, or just simply use file path and run it with the command.
 

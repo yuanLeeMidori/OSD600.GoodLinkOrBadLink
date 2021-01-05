@@ -22,7 +22,7 @@ namespace OSD600.GoodLinkOrBadLink
             "\nUse \"goodOrBad --good\" to get URLs with status code 200." +
             "\nUse \"goodOrBad --bad\" to get URLs with status code 400 or 404." +
             "\nUse \"goodOrBad --all\" to get all URLs." +
-            "\nUse \"goodOrBad --j\" or \"goodOrBad --json\" or \"goodOrBad /j\" to get JSON format output." +
+            "\nUse \"goodOrBad --j\" or \"goodOrBad --json\" to get JSON format output." +
             "\nUse \"goodOrBad *.txt\" to pass multiple files. " +
             "\nUse \"goodOrBad --t\" or \"goodOrBad --telescope\" to check the latest 10 posts from Telescope.");
         }
@@ -97,7 +97,7 @@ namespace OSD600.GoodLinkOrBadLink
 
         public static bool JSON(string argument)
         {
-            string[] args = { "-j", "--json", "/j" };
+            string[] args = { "--j", "--json", "/j" };
             List<string> jsonArgs = new List<string>(args);
             bool jsonOrNot = jsonArgs.Any(j => argument.Contains(j));
             if (jsonOrNot)
@@ -127,7 +127,7 @@ namespace OSD600.GoodLinkOrBadLink
 
         public static bool Ignore(string argument)
         {
-            string[] args = { "-i", "--ignore", @"\i" };
+            string[] args = { "--i", "--ignore", "/i" };
             List<string> ignoreArgs = new List<string>(args);
             bool ignoreOrNot = ignoreArgs.Any(f => argument.Contains(f));
             if (ignoreOrNot)
@@ -141,7 +141,7 @@ namespace OSD600.GoodLinkOrBadLink
         }
         public static bool Telescope(string argument)
         {
-            string[] args = { "-t", "--telescope", @"\t" };
+            string[] args = { "--t", "--telescope", "/t" };
             List<string> teleArgs = new List<string>(args);
             bool telescopeOrNot = teleArgs.Any(t => argument.Contains(t));
             if (telescopeOrNot)

@@ -6,7 +6,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <PackageLicenseFile>License</PackageLicenseFile>
-    <Version>1.0.8</Version>
+    <Version>1.0.9</Version>
     
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>goodOrBad</ToolCommandName>

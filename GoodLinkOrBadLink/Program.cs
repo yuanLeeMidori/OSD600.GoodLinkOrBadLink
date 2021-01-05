@@ -34,14 +34,14 @@ namespace OSD600.GoodLinkOrBadLink
                 if (!option)
                 {
                     Console.WriteLine("The input option \"" + args[0] + "\" is invalid. Try" +
-                                      "\n\n --v to get version," +
-                                      "\n --w to get Wayback," +
-                                      "\n --j to get JSON format output" +
+                                      "\n\n --v, --version, or /v to get current version," +
+                                      "\n --w, --wayback, or /w to get Wayback," +
+                                      "\n --j, --json, or /j to get JSON format output" +
                                       "\n --good to return URLs with 200 status code," +
                                       "\n --bad to return URLs with 400 or 404 status code" +
                                       "\n --all to return all URLs" +
-                                      "\n -i or --ignore or \\i to ignore links and paste them in another .txt file" +
-                                      "\n -t or --telescope or \\t to check the latest 10 posts in Telescope");
+                                      "\n --i, --ignore, or /i to ignore links and paste them in another .txt file" +
+                                      "\n --t, --telescope, or /t to check the latest 10 posts in Telescope");
                     Environment.Exit(0);
                 }
 
