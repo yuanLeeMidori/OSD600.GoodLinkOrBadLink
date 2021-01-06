@@ -1,40 +1,46 @@
 ### GoodLinkOrBadLink
 
-This command line tool helps you to test bundles of URLs. Just install the tool and run it with your file that contains the URLs that you're not sure which of them are valid and which of them are not.
+This command line tool helps you to test bundles of URLs. Install the tool and run it with your file that contains the URLs that you're not sure which of them are valid and which of them are not.
 
 
 #### Install the tool
 
-Use this command to install the tool: 
+Use this command to **install** the tool: 
 
 `dotnet tool install -g OSD600.GoodLinkOrBadLink`
 
-Use this command to install the specific version:
+Use this command to install the **specific version**:
 
 `dotnet tool install -g OSD600.GoodLinkOrBadLink --version <the-version-you-want>`
 
-Use this command to upgrade to the latest version:
+Use this command to **upgrade to the latest** version:
 
 `dotnet tool update OSD600.GoodLinkOrBadLink -g`
 
-Use this command to uninstall the tool:
+Use this command to **uninstall** the tool:
 
 `dotnet tool uninstall -g OSD600.GoodLinkOrBadLink`
 
 #### How to use it
 
-After installation, use the command `goodOrBad` as a command line tool along with a file arguement that you would like to check. For example, the file on your local machine is `urls.txt`, use the command `goodOrBad urls.txt` to run the tool. 
-* Check the version of this tool with `goodOrBad --v`, `goodOrBad --version`, or `goodOrBad /v` command. 
-* Check the wayback availiability with `goodOrBad --w <filename>`, `goodOrBad --wayback <filename>`, or `goodOrBad /w <filename>` command. 
-* Check the output with JSON format with `goodOrBad --j <filename>`, `goodOrBad --json <filename>`, or `goodOrBad /j <filename>` command.
-* Check the output with filters such as `goodOrBad --good <filename>` to get the URLs with 200 status code exclusively; `goodOrBad --bad <filename>` to get the URLs with only 400 or 404 status code; `goodOrBad --all <filename>` returns all URLs with their status code. 
-* Check urls in multiple files using regex, e.g. `goodOrBad *.txt` which will check all the .txt files in the current directory. 
-* Filter out specific pattern (pack the patterns within a file) with `goodOrBad --ignore <ignore_url_filename> <filename>` or `goodOrBad -i <ignore_url_filename> <filename>` or `goodOrBad /i <ignore_url_filename> <filename>` command. 
-* Check the latest 10 posts from [Telescope](https://github.com/Seneca-CDOT/telescope) with `goodOrBad --t`, `goodOrBad --telescope`, or `goodOrBad /t` command. (Telescope project has to be running on the same machine.)
+After installation, use the command `goodOrBad` as a command line tool along with a file arguement that you would like to check. For example, the file that contains URLs that you want to check on your local machine is `urls.txt`, use the command `goodOrBad urls.txt` to run the tool.
 
-You can use this *goodOrBad* command in any directory. You can either move to the directory that contains the file that you want to test, or just simply use file path and run it with the command.
+|Functionality | Option name    | Example | Precondition |
+| :---------|:-----------|:--------|:------|
+|Get current version| `--v`, `--version`, `/v` | `goodOrBad --version` | |
+|Check wayback | `--w`, `--wayback`, `/w` | `goodOrBad /w <filename>` | |
+|JSON output | `--j`, `--json`, `/j` | `goodOrBad --j <filename>` | |
+|Status code 200 only | `--good` | `goodOrBad --good <filename>` | |
+|Status code 400/404 only | `--bad` | `goodOrBad --bad <filename>`| |
+|Include all result | `--all`, empty | `goodOrBad <filename>` or `goodOrBad --all <filename>` | |
+|Pass multiple files | N/A, use regex on file name | `goodOrBad *.txt` checks all txt file in the directory | |
+|Ignore specific pattern | `--i`, `--ignore`, `/i` | `goodOrBad --i <ignore_url_filename> <filename>` |Place the URL patterns that you want to filter out in the `<ignore_url_filename>`. For example, put `http://www.wiki` in the `<ignore_url_file>` will exclude all URLs that starts with `http://www.wiki`.|
+|Check latest 10 posts on [Telescope](https://github.com/Seneca-CDOT/telescope) | `--t`, `--telescope`, `/t` | `goodOrBad --t` | Telescope project has to be running on the same machine. |
+
+You can use this *goodOrBad* command in any directory. You may either move to the directory that contains the file that you want to test, or just simply use file path and run it with the command.
 
 If the file path you're passing doesn't exist, you'll get a warning message. If the option you're passing is invalid, you'll get a short list of valid options.
+
 
 #### How to contribute
 
