@@ -2,6 +2,9 @@
 
 This command line tool helps you to test bundles of URLs. Install the tool and run it with your file that contains the URLs that you're not sure which of them are valid and which of them are not.
 
+#### Environment Set Up
+
+To use this tool, you'll need dotnet core SDK environment. Here is the link for download https://dotnet.microsoft.com/download. Dotnet core is available for [Linux OS](https://docs.microsoft.com/en-us/dotnet/core/install/linux), [macOS](https://docs.microsoft.com/en-us/dotnet/core/install/macos), and [Windows](https://docs.microsoft.com/en-us/dotnet/core/install/windows?tabs=net50).
 
 #### Install the tool
 
